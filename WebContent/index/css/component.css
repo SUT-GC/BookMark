@@ -1,0 +1,41 @@
+/* Header */
+.large-header {
+	position: relative;
+	width: 100%;
+	background: #333;
+	overflow: hidden;
+	background-size: cover;
+	background-position: center center;
+	z-index: 1;
+}
+
+.demo-1 .large-header {
+	background-image: url('../img/demo-1-bg.jpg');
+}
+
+.content_text{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	color: white;
+}
+
+.text_head{
+	font-size: 40px;
+	margin-bottom: 20px;
+}
+.text_list{
+	font-size: 30px;
+	text-align: center;
+}
+@media only screen and (max-width : 768px) {
+	.demo-1 .main-title, 
+	.demo-3 .main-title,
+	.demo-4 .main-title {
+		font-size: 3em;
+	}
+
+	.demo-2 .main-title {
+		font-size: 4em;
+	}
+}

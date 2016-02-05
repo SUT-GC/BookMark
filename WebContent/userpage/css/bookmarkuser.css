@@ -1,0 +1,342 @@
+
+.user_body{
+	margin-top: 60px;
+}
+.user_left{
+	margin-right: 10px;
+	width: 100%;
+	float: left;
+	border-radius: 20px;
+	padding-bottom: 50px;
+}
+.user_right{
+}
+.left_label_text{
+	float:left;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-right: 5px;
+	margin-left: 5px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	font-size: 20px;
+	border: solid 1px black; 
+}
+.left_label_head{
+	font-size: 30px;
+	text-align: center;
+	color: #FF6600;
+	padding-top:10px;
+}
+.left_label{
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.label_addbutton{
+	width: 88%;
+	margin-top: 15px;
+	margin-left: 6%;
+}
+.right_top{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.table_show{
+	width: 60px;
+}
+.table_del{
+	width: 60px;
+}
+.table_edit{
+	width: 60px;
+}
+.table_id{
+	width: 60px;
+}
+.table_createtime{
+	width: 180px;
+}
+.table_num{
+	text-align: center;
+	width:70px;
+}
+.table a {
+}
+/*三个按钮的样式start*/
+.show_button {
+	border: none;
+	height: 17px;
+	width: 22px;
+	outline: none;
+	background-color: #FFFFFF;
+}
+ .del_button {
+	border: none;
+	height: 17px;
+	width: 22px;
+	outline: none;
+	background-color: #FFFFFF;
+}
+ .edit_button{
+	border: none;
+	height: 17px;
+	width: 22px;
+	outline: none;
+	background-color: #FFFFFF;
+}
+.add_mark_button{
+	margin-left: 50%;
+}
+/*三个按钮的样式end*/
+.right_search_label{
+	font-size: 20px;
+}
+/*标签云start*/
+.cloud { 
+    width: 100%;
+    float: left; 
+}
+.cloud ul li { 
+    line-height: 15px; 
+    height: 30px; 
+    display: block; 
+    font-size: 18px;
+    background: #999; 
+    float: left;
+    padding: 6px;
+    margin: 10px 10px 0 0; 
+    border-radius:10px; 
+    -moz-transition: all 0.5s; 
+    -webkit-transition: all 0.5s; 
+    -o-transition: all 0.5s; 
+    transition: all 0.5s; 
+}
+.cloud ul li a { 
+    color: #FFF ;
+    text-decoration: none;
+}
+.cloud ul li:nth-child(8n-7) {
+  background: #8A9B0F 
+}
+.cloud ul li:nth-child(8n-6) {
+   background: #EB6841 
+}
+.cloud ul li:nth-child(8n-5) {
+   background: #3FB8AF 
+}
+.cloud ul li:nth-child(8n-4) {
+   background: #FE4365 
+}
+.cloud ul li:nth-child(8n-3) {
+   background: #FC9D9A 
+}
+.cloud ul li:nth-child(8n-2) {
+   background: #EDC951 
+}
+.cloud ul li:nth-child(8n-1) {
+   background: #C8C8A9 
+}
+.cloud ul li:nth-child(8n) {
+   background: #83AF9B 
+}
+.cloud ul li:first-child { 
+    background: #036564 
+}
+.cloud ul li:last-child { 
+  background: #3299BB 
+}
+.cloud ul li:hover { 
+  border-radius: 0; text-shadow: #000 1px 1px 1px 
+}
+.cloud ul {
+	float: left;
+	padding-left: 7%;
+	width:100%;
+}
+/*标签云end*/
+/*修改删除标签按钮start*/
+
+.cloudedit_edit_button{
+	border: none;
+	height: 17px;
+	width: 22px;
+	outline: none;
+	background-color: #FFFFFF;
+}
+.cloudedit_del_button{
+	border: none;
+	height: 17px;
+	width: 22px;
+	outline: none;
+	background-color: #FFFFFF;
+}
+/*修改删除标签按钮end*/
+
+
+/*关灯show_start*/
+.removeall_body{
+	background-color: #646464;
+}
+.tol_show{
+	position: absolute;
+	width: 500px;
+	left: 30%;
+	top: 52px;
+	background-color: #FFFFFF;
+}
+.tol_show_head {
+	text-align: center;
+	padding-top: 5px;
+	background-color: #FF0000;
+	padding-bottom: 5px;
+	color: #FFFFFF;
+}
+.tol_show_head  span{
+	font-size: 20px;
+}
+.tol_show pre{
+    white-space: pre-wrap;       /* css-3 */ 
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */ 
+    white-space: -pre-wrap;      /* Opera 4-6 */ 
+    white-space: -o-pre-wrap;    /* Opera 7 */ 
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */ 
+}
+.tol_show_body span{
+	font-size: 20px;
+}
+.tol_show_body{
+	margin-top: 10px;
+}
+.show_label_each span{
+	font-size: 15px;
+	margin-top: 5px;
+	margin-left: 10px;
+}
+.tol_close{
+	margin-top: 10px;
+	width: 100%;
+}
+.button_submiteditwebinfor{
+	margin-top: 10px;
+	width: 100%;
+}
+.tol_showpass{
+	width: 100%;
+	margin-bottom: 10px;
+}
+/*关灯show_end*/
+/*修改网站信息按钮css start*/
+.tol_edit{
+	position: absolute;
+	width: 600px;
+	left:25%;
+	top: 52px;
+	background-color: #FFFFFF;
+}
+.tol_edit_head{
+	text-align: center;
+	padding-top: 5px;
+	background-color: #FF0000;
+	padding-bottom: 5px;
+	color: #FFFFFF;
+}
+.tol_edit_head  span{
+	font-size: 20px;
+}
+.tol_edit_body{
+	padding-top: 10px;
+	padding-right: 20px;
+}
+/*修改网站信息按钮css end*/
+/*修改标签按钮div css start*/
+.cloud_div_edit{
+	width: 300px;
+	position: absolute;
+	left: 40%;
+	top:20%;
+	background-color: #FFFFFF;
+	border: 1px solid #DDDDDD;
+}
+.cloud_div_head{
+	height: 40px;
+	background-color: #FF0000;
+	color: #FFFFFF;
+	font-size: 25px;
+	text-align: center;
+	font-weight: bold;
+}
+.cloud_div_body{
+	margin-top: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 20px;
+	font-size: 17px;
+}
+.cloud_div_body label{
+	width: 90px;
+	text-align: right;
+}
+.cloud_div_body_submitbuttom{
+	margin-top: 20px;
+	float: right;
+}
+/*修改标签按钮div css end*/
+/*添加记录按钮div css start*/
+.tol_add{
+	position: absolute;
+	width: 600px;
+	left:25%;
+	top: 52px;
+	background-color: #FFFFFF;
+}
+.tol_add_head{
+	text-align: center;
+	padding-top: 5px;
+	background-color: #FF0000;
+	padding-bottom: 5px;
+	color: #FFFFFF;
+}
+.tol_add_head  span{
+	font-size: 20px;
+}
+.tol_add_body{
+	padding-top: 10px;
+	padding-right: 20px;
+}
+.tol_submit{
+	width: 100%;
+}
+/*添加记录按钮div css end*/
+/*标签添加start*/
+.cloud_div_add{
+	width: 300px;
+	position: absolute;
+	left: 40%;
+	top:20%;
+	background-color: #FFFFFF;
+	border: 1px solid #DDDDDD;
+}
+.cloud_add_head{
+	height: 40px;
+	background-color: #FF0000;
+	color: #FFFFFF;
+	font-size: 25px;
+	text-align: center;
+	font-weight: bold;
+}
+.cloud_add_body{
+	margin-top: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 20px;
+	font-size: 17px;
+}
+.cloud_add_body label{
+	width: 90px;
+	text-align: right;
+}
+.cloud_add_body_submitbuttom{
+	margin-top: 20px;
+	float: right;
+}
+/*标签添加end*/

@@ -1,0 +1,37 @@
+
+.all_content{
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-top: 60px;
+}
+.userinit_content_head{
+	font-size: 30px;
+	margin-bottom: 40px;
+}
+.userinit_content_head p{
+	text-align: center;
+}
+.input_result{
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 30px;
+	color: #FF3300;
+	font-size: 20px;
+}
+.button_begintouse{
+	width: 100%;
+}
+.content_body_introduce{
+	margin-top: 30px;
+	background-color: #FFFF66;
+
+}
+.introduce_head{
+	font-size: 25px;
+	color: #FF6600;
+}
+.introduce_body{
+	font-size: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+}

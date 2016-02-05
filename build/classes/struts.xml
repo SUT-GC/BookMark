@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="true" />
+
+	<!-- 默认的action与jsp的映射 -->
+	<!-- pakeage start -->
+	<package name="bookmark" namespace="/" extends="struts-default">
+
+		<!-- 注册拦截器 -->
+		<interceptors>
+			<interceptor name="userpageinterceptor" class="interceptor.UserPageInterceptor"></interceptor>
+		</interceptors>
+		
+		<default-action-ref name="welcome" />
+		
+		<action name="welcome">
+			<result>/WEB-INF/index.jsp</result>
+		</action>
+		<action name="session">
+			<result>/WEB-INF/sessionoverdue.jsp</result>
+		</action>
+		<action name="user" class="action.login.UserPageInit">
+			<result name="success">/WEB-INF/userpage.jsp</result>
+			<result name="welcome">/WEB-INF/index.jsp</result>
+			<result name="userinitpage">/WEB-INF/userinit.jsp</result>
+			<!-- 显式配置系统默认拦截器 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<!-- 配置自己定义的拦截器 -->
+			<interceptor-ref name="userpageinterceptor"></interceptor-ref>
+		</action>
+
+	</package>
+	<!-- package end -->
+	
+	<!-- package start -->
+	<!-- 与login相关 -->
+	<package name="login" namespace="/" extends="struts-default">
+		<!-- 注册拦截器 -->
+		<interceptors>
+			<interceptor name="userinitpageinterceptor" class="interceptor.UserInitPageInterceptor"></interceptor>
+		</interceptors>
+		<!-- userlogin ajax -->
+		<action name="userlogin" class="action.login.UserLogin">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- 用户初始化页面action -->
+		<action name="userinitpage">
+			<result name="success">/WEB-INF/userinit.jsp</result>
+			<result name="welcome">/WEB-INF/index.jsp</result>
+			<result name="user" type="redirectAction">
+				<param name="actionName">user</param>
+				<param name="namespace">/</param>
+			</result>
+			<!-- 显式配置系统默认拦截器 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<!-- 配置自己定义的拦截器 -->
+			<interceptor-ref name="userinitpageinterceptor"></interceptor-ref>
+		</action>
+		<!-- 用户初始化action -->
+		<action name="userinit" class="action.login.UserInit">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- 用户登陆信息显示界面 start -->
+		<action name="logininfor" >
+			<result>/WEB-INF/logininfor.jsp</result>
+		</action>
+		<!-- end -->
+	</package>
+	<!-- package end -->
+	
+	<!-- package start -->
+	<!-- 与注销相关 -->
+	<package name="outlogin" namespace="/" extends="struts-default">
+		<action name="outlogin" class="action.outlogin.UserOutLogin">
+			<result>/WEB-INF/index.jsp</result>
+		</action>
+	</package>
+	<!-- package end -->
+	
+	<!-- package start -->
+	<package name="ajaxaction" namespace="/" extends="struts-default">
+	
+		<!-- 注册拦截器 -->
+		<interceptors>
+			<interceptor name="ajaxinterceptor" class="interceptor.AjaxInterceptor"></interceptor>
+		</interceptors>
+		
+		<!-- 添加新的label的ajax action start -->
+		<action name="addnewlabel" class="action.ajax.add.AddLabel">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="ajaxinterceptor"></interceptor-ref>
+		</action>
+		<!-- end -->
+		
+		<!-- 根据labelid与labelname更新label的ajax action start -->
+		<action name="updatelabel" class="action.ajax.edit.EditLabel">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="ajaxinterceptor"></interceptor-ref>
+		</action>
+		<!-- end -->
+		
+		<!-- 根据labelid删除label与Webinfor_label表相关记录的ajax action start -->
+		<action name="deletelabel" class="action.ajax.delete.DeleteLabel">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="ajaxinterceptor"></interceptor-ref>
+		</action>
+		<!-- end -->
+		
+		<!-- action start 根据userid与输入的内容查询labels 的ajax -->
+		<action name="selectlabelsbyuseridandlabelname" class="action.ajax.select.SelectLabels">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="ajaxinterceptor"></interceptor-ref>
+		</action>
+		<!-- action end -->
+		
+		<!-- action start 插入新的web ajax-->
+		<action name="addwebinfor" class="action.ajax.add.AddWebInfor">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="ajaxinterceptor"></interceptor-ref>
+		</action>
+		<!-- action end -->
+		
+		<!-- action 根据创建时间排序webinfor ajax-->
+		<action name="selectwebinforsbytime" class="action.ajax.select.SelectWebInfors">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="ajaxinterceptor"></interceptor-ref>
+		</action>
+		<!-- action end -->
+		
+		<!-- action labelid查询出webinfors显示 ajax-->
+		<action name="selectwebinforsbylabelid" class="action.ajax.select.SelectWebInforsByLabelid">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="ajaxinterceptor"></interceptor-ref>
+		</action>
+		<!-- action end -->
+		
+		<!-- action 根据webinforid删除webinfor ajax-->
+		<action name="deletewebinforbyid" class="action.ajax.delete.DeleteWebInfor">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="ajaxinterceptor"></interceptor-ref>
+		</action>
+		<!-- action end -->
+		
+		<!-- action 根据webinforid查询webinfor ajax-->
+		<action name="selectwebinforbywebinforid" class="action.ajax.select.SelectWebInforById">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="ajaxinterceptor"></interceptor-ref>
+		</action>
+		<!-- action end -->
+		
+		<!-- action 根据userid与webinforid查询账号密码 ajax-->
+		<action name="selectpassandacount" class="action.ajax.select.SelectPassAndAcc">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="ajaxinterceptor"></interceptor-ref>
+		</action>
+		<!-- action end -->
+
+		<!-- action 根据labelid与webinforid删除OR添加webinfor_label ajax-->
+		<action name="deleteoraddlabelandwebinfor" class="action.ajax.delete.DelOrAddLabelAndWebinfor">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="ajaxinterceptor"></interceptor-ref>
+		</action>
+		<!-- action end -->
+		
+		<!-- action 根据labelid与webinforid删除OR添加webinfor_label ajax-->
+		<action name="updatawebinfor" class="action.ajax.edit.EditWebInfor">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="ajaxinterceptor"></interceptor-ref>
+		</action>
+		<!-- action end -->
+	
+		<!-- action 根据webinforid更新webinfornum ajax-->
+		<action name="updatawebinfornum" class="action.ajax.add.AddWebInforNum">
+			
+		</action>
+		<!-- action end -->
+		
+		<!-- action 根据webinforname与userid迷糊查询webinfor ajax-->
+		<action name="selectwebinforlikename" class="action.ajax.select.SelectWebInforLikeName">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="ajaxinterceptor"></interceptor-ref>
+		</action>
+		<!-- action end -->
+	</package>
+	<!-- package end -->
+	
+	
+
+</struts>
+
+
+
+
+
+
+
