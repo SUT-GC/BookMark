@@ -1,5 +1,6 @@
 package dao.bmdb.operate;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -17,6 +18,7 @@ public class UserInforDao {
 	 * 2:根据userid，useremail，usernike来查询出一个userinfo人并且向里添加logininfor
 	 * 3:根据userid，useremail，usernike来判断该用户是否是第一次使用BookMark 
 	 * 4:根据userid，useremail.查询口令的MD5
+	 * 5:根据userid查询logininfor
 	 */
 
 	/*
@@ -105,5 +107,20 @@ public class UserInforDao {
 		DBConnectUtil.closeSession(session);
 		
 		return (String) list.get(0);
+	}
+	/*
+	 *  5:根据userid查询logininfor
+	 */
+	public static List<LoginInfor> selectLoginInfor(int userid){
+		List<LoginInfor> list = null;
+		Session session = DBConnectUtil.currentSession();
+		Transaction transaction = session.beginTransaction();
+		
+		UserInfor userInfor = (UserInfor)session.get(UserInfor.class, userid);
+		list = userInfor.getLogininfors();
+		
+		transaction.commit();
+		DBConnectUtil.closeSession(session);
+		return list;
 	}
 }

@@ -66,8 +66,12 @@ public class LoginInfor implements Serializable{
 
 	@Override
 	public String toString() {
-		return "LoginInfor [logintime=" + logintime + "]";
+		return "LoginInfor [logintime=" + logintime + ", ipAddress="
+				+ ipAddress + ", hostname=" + hostname + "]";
 	}
+
+
+	
 	
 	
 

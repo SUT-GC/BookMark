@@ -10,10 +10,12 @@ import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.bmdb.entity.LoginInfor;
+import dao.bmdb.operate.UserInforDao;
 
 public class ShowLoginInfor extends ActionSupport {
 	private List<LoginInfor> list = null;
 	private int userid;
+	private int size;
 	private String useremail;
 	private String usernike;
 
@@ -39,6 +41,14 @@ public class ShowLoginInfor extends ActionSupport {
 
 	public void setUseremail(String useremail) {
 		this.useremail = useremail;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
 	}
 
 	public String getUsernike() {
@@ -74,9 +84,9 @@ public class ShowLoginInfor extends ActionSupport {
 		if(userid == -1 || useremail == null || usernike == null){
 			return "session";
 		}else{
-			
+			list = UserInforDao.selectLoginInfor(userid);
+			size = list.size();
 		}
-
 		
 		return SUCCESS;
 	}

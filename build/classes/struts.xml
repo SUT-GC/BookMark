@@ -73,8 +73,9 @@
 			</result>
 		</action>
 		<!-- 用户登陆信息显示界面 start -->
-		<action name="logininfor" >
-			<result>/WEB-INF/logininfor.jsp</result>
+		<action name="logininfor" class="action.show.ShowLoginInfor">
+			<result name="success">/WEB-INF/logininfor.jsp</result>
+			<result name="session">/WEB-INF/sessionoverdue.jsp</result>
 		</action>
 		<!-- end -->
 	</package>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-CN">
   <head>
@@ -43,9 +44,9 @@
               <tr><td>#</td><td>登陆Ip</td><td>登陆主机</td><td>登陆时间</td></tr>
             </thead>
             <tbody class="tbody_logininfor">
-	             <tr>
-	                <td>1</td><td>192.168.1.1</td><td>Gc</td><td>2015-1-1 11:32:00</td>
-	              </tr> 
+	            <s:iterator value="list" status="st">
+	            	<tr><td><s:property value="#st.index "/> </td><td><s:property value="list[size - #st.index - 1].ipAddress"/> </td><td><s:property value="list[size - #st.index - 1].hostname"/> </td><td><s:property value="list[size - #st.index - 1].logintime"/> </td></tr>
+	            </s:iterator>
             </tbody>
           </table>
         </div>

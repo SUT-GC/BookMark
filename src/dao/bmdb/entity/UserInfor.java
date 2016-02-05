@@ -8,6 +8,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OrderColumn;
@@ -27,7 +28,7 @@ public class UserInfor implements Serializable {
 	@Column(name = "user_keymd5")
 	private String keymd5;
 
-	@ElementCollection(targetClass = LoginInfor.class)
+	@ElementCollection(targetClass = LoginInfor.class, fetch=FetchType.EAGER)
 	@CollectionTable(name = "bm_logininfor", joinColumns = @JoinColumn(name = "userid", nullable = false))
 	@OrderColumn(name = "logininfor_order")
 	private List<LoginInfor> logininfors = new ArrayList<LoginInfor>();
