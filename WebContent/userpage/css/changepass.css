@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+.edit_key{
+	float:left;
+	margin-left: 80px;
+	margin-right: 80px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+.edit_pass{
+	float:left;
+	margin-left: 80px;
+	margin-right: 80px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
