@@ -78,6 +78,10 @@
 			<result name="session">/WEB-INF/sessionoverdue.jsp</result>
 		</action>
 		<!-- end -->
+		<!-- 用户修改密码界面 -->
+		<action name="changepass">
+			<result>/WEB-INF/changepass.jsp</result>
+		</action>
 	</package>
 	<!-- package end -->
 	
