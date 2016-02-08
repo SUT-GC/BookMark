@@ -1,0 +1,24 @@
+/**
+ * 
+ */
+$(document).ready(function(){
+	$(".div_edit_key_doing").hide();
+	$(".div_edit_key").hide();
+	$(".div_edit_pass_doing").hide();
+	$(".div_edit_pass").hide();
+	$(".button_close").click(function(){
+		$(".div_edit_key").slideUp(200);
+		$(".div_edit_pass").slideUp(200);
+	});
+	$(".button_edit_pass").click(function(){
+		$(".div_edit_key").hide(200);
+		$(".div_edit_pass").slideDown(200);
+	});
+	$(".button_edit_key").click(function(){
+		$(".div_edit_pass").hide(200);
+		$(".div_edit_key").slideDown(200);
+	});
+	$(".button_exit").click(function(){
+		window.location.href="user";
+	});
+});

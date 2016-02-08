@@ -1,15 +1,53 @@
 @CHARSET "UTF-8";
-.edit_key{
-	float:left;
-	margin-left: 80px;
-	margin-right: 80px;
+.editbutton{
 	margin-top: 30px;
 	margin-bottom: 30px;
 }
-.edit_pass{
-	float:left;
-	margin-left: 80px;
-	margin-right: 80px;
-	margin-top: 30px;
-	margin-bottom: 30px;
+.input_result{
+	color:red;
+	font-size:20px;
+}
+.button_okedit{
+	width:100%;
+}
+.button_close{
+	width:100%;	
+	margin-top: 20px;
+}
+.divlabel{
+	font-size:18px;
+}
+.div_edit_pass_doing{
+	font-size: 25px;
+	text-align: center;
+	color:red;
+	margin-top: 50px;
+}
+.div_edit_key_doing{
+	font-size: 25px;
+	text-align: center;
+	color:red;
+	margin-top: 50px;
+}
+.all{
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+.head{
+	margin-top:100px;
+	margin-right:10%;
+	margin-left:10%;
+	padding-top:5px;
+	padding-bottom:5px;
+	margin-bottom:50px;
+	font-size:20px;
+	text-align: center;
+	border: 1px solid black;
+}
+.div_edit_pass{
+	margin-left: 12%;
+}
+.div_edit_key{
+	margin-left: 12%;
 }
