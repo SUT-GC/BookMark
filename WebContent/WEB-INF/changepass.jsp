@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -28,9 +29,9 @@
   <body>
     <div class="all">
     	<div class="head">
-	    	<span>用户ID：</span><a href="#">1</a>&nbsp;&nbsp;&nbsp;&nbsp;
-	    	<span>用户昵称：</span><a href="#">Gc</a>&nbsp;&nbsp;&nbsp;&nbsp;
-	    	<span>用户邮箱：</span><a href="#">gouchao2008@qq.com</a>
+	    	<span>用户ID：</span><a href="#"><s:property value="#session.userid"/> </a>&nbsp;&nbsp;&nbsp;&nbsp;
+	    	<span>用户昵称：</span><a href="#"><s:property value="#session.usernick"/></a>&nbsp;&nbsp;&nbsp;&nbsp;
+	    	<span>用户邮箱：</span><a href="#"><s:property value="#session.useremail"/> </a>
     	</div>
     	<div class="body">
     		<div class="editbutton">
@@ -51,51 +52,57 @@
 	    		</div>
     		</div>
 	    	<div class="div_edit_pass">
-	    		<div class="row">
-	    			<div class="col-md-2 divlabel">
-	    				请输入旧密码 :
-	    			</div>
-	    			<div class="col-md-6">
-	    				<div class="form-group has-error has-feedback">
-						  	<input type="text" class="form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status">
-						  	<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-						  	<span id="inputSuccess2Status" class="sr-only">(success)</span>
-					  	</div>
-	    			</div>
-	    			<div class="col-md-4 input_result">
-	    				输入不能为空
-	    			</div>
-	    		</div>
-	    		<div class="row">
-	    			<div class="col-md-2 divlabel" >
-	    				请输入新密码 :
-	    			</div>
-	    			<div class="col-md-6">
-	    				<div class="  form-group has-error has-feedback">
-						  	<input type="text"  readonly class=" form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status">
-						  	<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-						  	<span id="inputSuccess2Status" class="sr-only">(success)</span>
-					  	</div>
-	    			</div>
-	    			<div class="col-md-4 input_result">
-	    				输入不能为空
-	    			</div>
-	    		</div>
-	    		<div class="row">
-	    			<div class="col-md-2 divlabel">
-	    				请再次输入新密码 :
-	    			</div>
-	    			<div class="col-md-6">
-	    				<div class=" form-group has-error has-feedback">
-						  	<input type="text" readonly class=" form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status">
-						  	<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-						  	<span id="inputSuccess2Status" class="sr-only">(success)</span>
-					  	</div>
-	    			</div>
-	    			<div class="col-md-4 input_result">
-	    				输入不能为空
-	    			</div>
-	    		</div>
+	    		<div class="div_oldpass">
+		    		<div class="row">
+		    			<div class="col-md-2 divlabel">
+		    				请输入旧密码 :
+		    			</div>
+		    			<div class="col-md-6">
+		    				<div class="form-group has-error has-feedback">
+							  	<input type="password" class="form-control input_oldpass" id="inputSuccess2" aria-describedby="inputSuccess2Status">
+							  	<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+							  	<span id="inputSuccess2Status" class="sr-only">(success)</span>
+						  	</div>
+		    			</div>
+		    			<div class="col-md-4 input_result input_oldpass_result">
+		    				输入不能为空
+		    			</div>
+		    		</div>
+		    	</div>
+		    	<div class="div_newpass1">
+		    		<div class="row">
+		    			<div class="col-md-2 divlabel" >
+		    				请输入新密码 :
+		    			</div>
+		    			<div class="col-md-6">
+		    				<div class="  form-group has-error has-feedback">
+							  	<input type="password"  readonly class=" form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status">
+							  	<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+							  	<span id="inputSuccess2Status" class="sr-only">(success)</span>
+						  	</div>
+		    			</div>
+		    			<div class="col-md-4 input_result">
+		    				输入不能为空
+		    			</div>
+		    		</div>
+		    	</div>
+		    	<div class="div_newpass2">
+		    		<div class="row">
+		    			<div class="col-md-2 divlabel">
+		    				请再次输入新密码 :
+		    			</div>
+		    			<div class="col-md-6">
+		    				<div class=" form-group has-error has-feedback">
+							  	<input type="password" readonly class=" form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status">
+							  	<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+							  	<span id="inputSuccess2Status" class="sr-only">(success)</span>
+						  	</div>
+		    			</div>
+		    			<div class="col-md-4 input_result">
+		    				输入不能为空
+		    			</div>
+		    		</div>
+		    	</div>
 	    		<div class="row">
 	    			<div class="col-md-2">
 	    			</div>

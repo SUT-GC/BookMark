@@ -44,6 +44,7 @@
 		<!-- 注册拦截器 -->
 		<interceptors>
 			<interceptor name="userinitpageinterceptor" class="interceptor.UserInitPageInterceptor"></interceptor>
+			<interceptor name="changepassinterceptor" class="interceptor.ChangePassInterceptor"></interceptor>
 		</interceptors>
 		<!-- userlogin ajax -->
 		<action name="userlogin" class="action.login.UserLogin">
@@ -81,6 +82,11 @@
 		<!-- 用户修改密码界面 -->
 		<action name="changepass">
 			<result>/WEB-INF/changepass.jsp</result>
+			<result name="session">/WEB-INF/sessionoverdue.jsp</result>
+			<!-- 显式配置系统默认拦截器 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<!-- 配置自己定义的拦截器 -->
+			<interceptor-ref name="changepassinterceptor"></interceptor-ref>
 		</action>
 	</package>
 	<!-- package end -->
@@ -249,6 +255,24 @@
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 			<interceptor-ref name="ajaxinterceptor"></interceptor-ref>
 		</action>
+		<!-- action end -->
+		
+		<!-- action 根据相关信息比对输入的密码是否正确 -->
+		<action name="checkpass" class="action.ajax.update.CheckPass">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>		
+		<!-- action end -->
+		
+		<!-- action 根据相关信息更改密码 -->
+		<action name="updatepass" class="action.ajax.update.UpdatePass">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>		
 		<!-- action end -->
 	</package>
 	<!-- package end -->

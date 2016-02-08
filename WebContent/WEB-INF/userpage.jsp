@@ -59,7 +59,7 @@ body {
 							value="#session.useremail" /> &nbsp;&nbsp;&nbsp; 用户昵称: <s:property
 							value="#session.usernick" /><span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="#">用户中心</a></li>
+						<li><a href="changepass">用户中心</a></li>
 						<li><a href="logininfor">登陆记录</a></li>
 						<li><a href="outlogin">用户注销</a></li>
 					</ul></li>
