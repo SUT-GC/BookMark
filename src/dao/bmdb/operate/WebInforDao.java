@@ -15,12 +15,17 @@ import encrypt.pbe.PBEUtil;
 public class WebInforDao {
 
 	/*
-	 * 1:插入一个新的webInfor 2:根据labelid与webinforid向webinfor的labels里添加label
-	 * 3:根据webinforid查询出所有的label 4:根据labelid删除webinfor_label里的记录
+	 * 1:插入一个新的webInfor 
+	 * 2:根据labelid与webinforid向webinfor的labels里添加label
+	 * 3:根据webinforid查询出所有的label 
+	 * 4:根据labelid删除webinfor_label里的记录
 	 * 5:根据userid与useremail查询出所有相关的webinfor,并且按照点击数从大到小排列
 	 * 6:根据userid与useremail查询出所有相关的webinfor,并且按照点创建时间从新到旧排列
-	 * 7:根据webinforid删除webinfor 8:根据webinforid查询出webinfor的信息
-	 * 9:根据webinforid查询出账号密码 10:更新webinfor 11:更新webinfornum 自加1
+	 * 7:根据webinforid删除webinfor 
+	 * 8:根据webinforid查询出webinfor的信息
+	 * 9:根据webinforid查询出账号密码 
+	 * 10:更新webinfor 
+	 * 11:更新webinfornum 自加1
 	 * 12:根据webinforname模糊查询webinfor 13:根据userid与newkey，oldkey更新所有的口令
 	 */
 
@@ -100,7 +105,7 @@ public class WebInforDao {
 
 		list = session
 				.createQuery(
-						"select webinfor.id, webinfor.name, webinfor.link, webinfor.num, webinfor.createtime from WebInfor webinfor order by webinfor.num desc")
+						"select webinfor.id, webinfor.name, webinfor.link, webinfor.num, webinfor.createtime from WebInfor webinfor where webinfor.userid = :userid and webinfor.useremail = :useremail order by webinfor.num desc").setInteger("userid", userid).setString("useremail", useremail)
 				.list();
 
 		transaction.commit();
@@ -119,7 +124,7 @@ public class WebInforDao {
 
 		list = session
 				.createQuery(
-						"select webinfor.id, webinfor.name, webinfor.link, webinfor.num, webinfor.createtime from WebInfor webinfor order by webinfor.createtime desc")
+						"select webinfor.id, webinfor.name, webinfor.link, webinfor.num, webinfor.createtime from WebInfor webinfor where webinfor.userid = :userid and webinfor.useremail = :useremail order by webinfor.createtime desc").setInteger("userid", userid).setString("useremail", useremail)
 				.list();
 
 		transaction.commit();
