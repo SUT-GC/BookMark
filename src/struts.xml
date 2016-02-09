@@ -242,7 +242,7 @@
 	
 		<!-- action 根据webinforid更新webinfornum ajax-->
 		<action name="updatawebinfornum" class="action.ajax.add.AddWebInforNum">
-			
+			<result></result>
 		</action>
 		<!-- action end -->
 		
