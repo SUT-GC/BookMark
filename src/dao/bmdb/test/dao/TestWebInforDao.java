@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.Set;
 
 import dao.bmdb.entity.Label;
+import dao.bmdb.entity.UserInfor;
 import dao.bmdb.entity.WebInfor;
+import dao.bmdb.operate.UserInforDao;
 import dao.bmdb.operate.WebInforDao;
 import encrypt.base64.Base64Util;
+import encrypt.md5.MD5Util;
 
 public class TestWebInforDao {
 	public static void main(String[] args) {
@@ -89,5 +92,12 @@ public class TestWebInforDao {
 //		Object object = list.get(0);
 //		Object[] o = (Object[]) object;
 //		System.out.println(o[0]);
+		/*
+		 * 根据userid，newkey，oldkey更新webinfor的加密内容
+		 */
+//		System.out.println(UserInforDao.selectUserKeyMd5ByUseridUseremail(1, "gouchao2008@qq.com"));
+		UserInforDao.updateKey(1,MD5Util.makeSrcToMD5("135"));
+//		System.out.println(MD5Util.makeSrcToMD5("456"));
+//		System.out.println(WebInforDao.updataWebinforResult(1, "135", "246"));
 	}
 }

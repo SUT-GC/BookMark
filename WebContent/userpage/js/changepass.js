@@ -9,14 +9,20 @@ $(document).ready(function(){
 	$(".button_close").click(function(){
 		$(".div_edit_key").slideUp(200);
 		$(".div_edit_pass").slideUp(200);
+		$(".div_edit_pass_doing").hide();
+		$(".div_edit_key_doing").hide();
 	});
 	$(".button_edit_pass").click(function(){
 		$(".div_edit_key").hide(200);
 		$(".div_edit_pass").slideDown(200);
+		$(".div_edit_pass_doing").hide();
+		$(".div_edit_key_doing").hide();
 	});
 	$(".button_edit_key").click(function(){
 		$(".div_edit_pass").hide(200);
 		$(".div_edit_key").slideDown(200);
+		$(".div_edit_pass_doing").hide();
+		$(".div_edit_key_doing").hide();
 	});
 	$(".button_exit").click(function(){
 		window.location.href="user";
@@ -70,7 +76,7 @@ $(document).ready(function(){
 				if(data == 0){
 					changeInputToNotUse();
 					result = "与服务器链接失败";
-					changeIconToError("div_edit_pass");
+					changeIconToError("div_oldpass");
 					$(".button_okedit").attr("disabled","disabled");
 				}
 				$(".div_edit_pass .input_oldpass_result").text(result);
@@ -134,6 +140,118 @@ $(document).ready(function(){
 				}else{
 					$(".div_edit_pass_doing span").text("服务器链接失败");
 				}
+			});
+		}
+	});
+	
+	/*
+	 * 修改key
+	 */
+	var changerInputToUse2 = function(){
+		$(".edit_newkey1 input").removeAttr("readonly");
+		$(".edit_newkey2 input").removeAttr("readonly");
+	}
+	var changeInputToNotUse2 = function(){
+		$(".edit_newkey1 input").attr("readonly","readonly");
+		$(".edit_newkey2 input").attr("readonly","readonly");
+	}
+	$(".edit_oldkey input").on("keyup", function(){
+		var oldkey = $(".edit_oldkey input").val();
+		if(oldkey == ""){
+			$(".edit_oldkey .input_result").text("输入不能为空");
+		}else{
+			$.post("checkkey?oldkey="+oldkey, function(data){
+				result = "服务器链接失败";
+				if(data == 0){
+					changeInputToNotUse2();
+					changeIconToError("edit_oldkey");
+					result = "数据库链接失败";
+					$(".button_okeditkey").attr("disabled","disabled");
+				}
+				if(data == -1){
+					changeInputToNotUse2();
+					changeIconToError("edit_oldkey");
+					result = "口令错误";
+					$(".button_okeditkey").attr("disabled","disabled");
+				}
+				if(data == -2){
+					changeInputToNotUse2();
+					changeIconToError("edit_oldkey");
+					window.location.href="session";
+					$(".button_okeditkey").attr("disabled","disabled");
+				}
+				if(data == 1){
+					changeIconToOk("edit_oldkey");
+					result = "口令验证成功";
+					changerInputToUse2();
+				}
+				$(".edit_oldkey .input_result").text(result);
+			});
+		}
+	});
+	$(".edit_newkey1").on("keyup", function(){
+		var newkey1 = $(".edit_newkey1 input").val();
+		if(newkey1 == ''){
+			changeIconToError("edit_newkey1");
+			$(".edit_newkey1 .input_result").text("输入不能为空");
+		}else if(!judge(newkey1)){
+			changeIconToError("edit_newkey1");
+			$(".edit_newkey1 .input_result").text("内容中不能存在空格");
+		}else{
+			$(".edit_newkey1 .input_result").text("输入合格");
+			changeIconToOk("edit_newkey1");
+		}
+	})
+	
+	$(".edit_newkey2").on("keyup", function(){
+		var newkey1 = $(".edit_newkey1 input").val();
+		var newkey2 = $(".edit_newkey2 input").val();
+		if(newkey1 == newkey2){
+			$(".edit_newkey2 .input_result").text("输入合格");
+			changeIconToOk("edit_newkey2");
+			$(".button_okeditkey").removeAttr("disabled");
+		}else{
+			changeIconToError("edit_newkey2");
+			$(".edit_newkey2 .input_result").text("两次输入内容必须一致");
+			$(".button_okeditkey").attr("disabled","disabled");
+		}
+	});
+	
+	$(".button_okeditkey").click(function(){
+		var newkey1 = $(".edit_newkey1 input").val();
+		var newkey2 = $(".edit_newkey2 input").val();
+		var oldkey = $(".edit_oldkey input").val();
+		if(newkey1 != newkey2){
+			alert("两次输入口令不一致，请重新输入");
+		}else{
+			/*
+			 * -2:session过期
+			 * -1:两次口令不正确
+			 * 0:数据库链接异常
+			 * 1:修改成功
+			 * -3:口令错误
+			 */
+			$.post("updatekey?newkey1="+newkey1+"&newkey2="+newkey2+"&oldkey="+oldkey, function(data){
+				
+				var  result = "服务器链接失败";
+				if(data == 1){
+					result ="修改成功";
+				}
+				if(data == -2){
+					window.location.href="session";
+				}
+				if(data == -3){
+					result = "旧口令输入错误！";
+				}
+				if(data == -1){
+					result = "两次口令输入不一致";
+				}
+				if(data == 0){
+					result = "数据库链接异常";
+				}
+				$(".div_edit_key_doing").show();
+				$(".div_edit_key").hide();
+				$(".div_edit_key_doing span").text(result);
 			});
 		}
 	});

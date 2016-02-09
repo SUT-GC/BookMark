@@ -274,6 +274,24 @@
 			</result>
 		</action>		
 		<!-- action end -->
+		
+		<!-- action 根据相关信息比对输入的口令是否正确 -->
+		<action name="checkkey" class="action.ajax.update.CheckKey">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>		
+		<!-- action end -->
+		
+		<!-- action 根据相关信息更新口令与加密内容 -->
+		<action name="updatekey" class="action.ajax.update.UpdateKey">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>		
+		<!-- action end -->
 	</package>
 	<!-- package end -->
 	

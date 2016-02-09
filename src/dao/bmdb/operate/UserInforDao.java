@@ -19,6 +19,7 @@ public class UserInforDao {
 	 * 3:根据userid，useremail，usernike来判断该用户是否是第一次使用BookMark 
 	 * 4:根据userid，useremail.查询口令的MD5
 	 * 5:根据userid查询logininfor
+	 * 6:根据userid，更新keyMd5
 	 */
 
 	/*
@@ -122,5 +123,20 @@ public class UserInforDao {
 		transaction.commit();
 		DBConnectUtil.closeSession(session);
 		return list;
+	}
+	
+	/*
+	 * 6:根据userid更新keyMd5
+	 */
+	public static void updateKey(int userid, String newkey){
+		Session session = DBConnectUtil.currentSession();
+		Transaction transaction = session.beginTransaction();
+		
+		UserInfor userInfor = (UserInfor) session.get(UserInfor.class, userid);
+		userInfor.setKeymd5(newkey);
+		session.update(userInfor);
+		
+		transaction.commit();
+		DBConnectUtil.closeSession(session);
 	}
 }

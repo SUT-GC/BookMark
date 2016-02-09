@@ -78,7 +78,6 @@ public class UpdatePass extends ActionSupport {
 	 * -1:两次密码不一致
 	 */
 	public String execute() throws Exception {
-		System.out.println("newpass1="+newpass1+",newpass2"+newpass2);
 		String result = "0";
 		HttpSession httpSession = ServletActionContext.getRequest()
 				.getSession();
@@ -90,20 +89,6 @@ public class UpdatePass extends ActionSupport {
 		useremail = (String) httpSession.getAttribute("useremail");
 		usernick = (String) httpSession.getAttribute("usernick");
 
-		if (userid == -1 || useremail == null || usernick == null) {
-			Cookie[] cookies = ServletActionContext.getRequest().getCookies();
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("userid")) {
-					userid = Integer.parseInt(cookie.getValue());
-				}
-				if (cookie.getName().equals("usernick")) {
-					usernick = cookie.getValue();
-				}
-				if (cookie.getName().equals("useremail")) {
-					useremail = cookie.getValue();
-				}
-			}
-		}
 		if (userid == -1 || useremail == null || usernick == null) {
 			result = "-2";
 		} else {

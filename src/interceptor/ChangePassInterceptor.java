@@ -22,20 +22,6 @@ public class ChangePassInterceptor extends AbstractInterceptor {
 		String useremail = (String) httpSession.getAttribute("useremail"); 
 		String usernick = (String) httpSession.getAttribute("usernick"); 
 		
-		if(userid == -1 || useremail == null || usernick == null){
-			Cookie[] cookies = ServletActionContext.getRequest().getCookies();
-			for(Cookie cookie : cookies){
-				if(cookie.getName().equals("userid")){
-					userid = Integer.parseInt(cookie.getValue());
-				}
-				if(cookie.getName().equals("usernick")){
-					usernick = cookie.getValue();
-				}
-				if(cookie.getName().equals("useremail")){
-					useremail = cookie.getValue();
-				}
-			}
-		}
 		
 		if(userid == -1 || useremail == null || usernick == null){
 			return "session";

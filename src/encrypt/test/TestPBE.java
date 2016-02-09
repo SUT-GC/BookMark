@@ -25,12 +25,12 @@ public class TestPBE {
 
 	public static void main(String[] args) {
 		try {
-			PBEUtil pbeUtil = new PBEUtil("gc", "231231233");
+			PBEUtil pbeUtil = new PBEUtil("gcc", "231231233");
 			byte[] byteresult = pbeUtil.PBEEncode();
 			byte[] salt = pbeUtil.getSalt();
 			String stringsalt = Base64.encodeBase64String(salt);
 			
-			PBEUtil pbeUtil2 = new PBEUtil("gc", byteresult, Base64.decodeBase64(stringsalt));
+			PBEUtil pbeUtil2 = new PBEUtil("gcc", byteresult, Base64.decodeBase64(stringsalt));
 			System.out.println(pbeUtil2.PBEDecode());
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -126,56 +126,62 @@
 	    		</div>
 	    	</div>
 	    	<div class="div_edit_key">
-	    		<div class="row">
-	    			<div class="col-md-2 divlabel">
-	    				请输入旧口令 :
-	    			</div>
-	    			<div class="col-md-6">
-	    				<div class="form-group has-error has-feedback">
-						  	<input type="text" class="form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status">
-						  	<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-						  	<span id="inputSuccess2Status" class="sr-only">(success)</span>
-					  	</div>
-	    			</div>
-	    			<div class="col-md-4 input_result">
-	    				输入不能为空
-	    			</div>
+	    		<div class="edit_oldkey">
+ 			    	<div class="row">
+		    			<div class="col-md-2 divlabel">
+		    				请输入旧口令 :
+		    			</div>
+		    			<div class="col-md-6">
+		    				<div class="form-group has-error has-feedback">
+							  	<input type="password" class="form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status">
+							  	<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+							  	<span id="inputSuccess2Status" class="sr-only">(success)</span>
+						  	</div>
+		    			</div>
+		    			<div class="col-md-4 input_result">
+		    				输入不能为空
+		    			</div>
+		    		</div>
 	    		</div>
-	    		<div class="row">
-	    			<div class="col-md-2 divlabel" >
-	    				请输入新口令 :
-	    			</div>
-	    			<div class="col-md-6">
-	    				<div class="  form-group has-error has-feedback">
-						  	<input type="text"  readonly class=" form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status">
-						  	<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-						  	<span id="inputSuccess2Status" class="sr-only">(success)</span>
-					  	</div>
-	    			</div>
-	    			<div class="col-md-4 input_result">
-	    				输入不能为空
-	    			</div>
+	    		<div class="edit_newkey1">
+	    			<div class="row">
+		    			<div class="col-md-2 divlabel" >
+		    				请输入新口令 :
+		    			</div>
+		    			<div class="col-md-6">
+		    				<div class="  form-group has-error has-feedback">
+							  	<input type="password"  readonly class=" form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status">
+							  	<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+							  	<span id="inputSuccess2Status" class="sr-only">(success)</span>
+						  	</div>
+		    			</div>
+		    			<div class="col-md-4 input_result">
+		    				输入不能为空
+		    			</div>
+		    		</div>
 	    		</div>
-	    		<div class="row">
-	    			<div class="col-md-2 divlabel">
-	    				请再次输入新口令 :
-	    			</div>
-	    			<div class="col-md-6">
-	    				<div class=" form-group has-error has-feedback">
-						  	<input type="text" readonly class=" form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status">
-						  	<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-						  	<span id="inputSuccess2Status" class="sr-only">(success)</span>
-					  	</div>
-	    			</div>
-	    			<div class="col-md-4 input_result">
-	    				输入不能为空
-	    			</div>
+	    		<div class="edit_newkey2">
+	    			<div class="row">
+		    			<div class="col-md-2 divlabel">
+		    				请再次输入新口令 :
+		    			</div>
+		    			<div class="col-md-6">
+		    				<div class=" form-group has-error has-feedback">
+							  	<input type="password" readonly class=" form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status">
+							  	<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+							  	<span id="inputSuccess2Status" class="sr-only">(success)</span>
+						  	</div>
+		    			</div>
+		    			<div class="col-md-4 input_result">
+		    				输入不能为空
+		    			</div>
+		    		</div>
 	    		</div>
 	    		<div class="row">
 	    			<div class="col-md-2">
 	    			</div>
 	    			<div class="col-md-6">
-	    				<button type="button" disabled class="btn btn-success button_okedit">确认修改</button>
+	    				<button type="button" disabled class="btn btn-success button_okeditkey">确认修改</button>
 	    				<button type="button"  class="btn btn-primary button_close">取消修改</button>
 	    			</div>
 	    			<div class="col-md-4">
