@@ -19,6 +19,7 @@ public class UpdatePass extends ActionSupport {
 	private String usernick;
 	private String newpass1;
 	private String newpass2;
+	private String oldpass;
 
 	private InputStream inputStream;
 
@@ -69,6 +70,16 @@ public class UpdatePass extends ActionSupport {
 	public void setInputStream(InputStream inputStream) {
 		this.inputStream = inputStream;
 	}
+	
+	
+
+	public String getOldpass() {
+		return oldpass;
+	}
+
+	public void setOldpass(String oldpass) {
+		this.oldpass = oldpass;
+	}
 
 	@Override
 	/**
@@ -76,6 +87,7 @@ public class UpdatePass extends ActionSupport {
 	 * -2:session过期
 	 * 1:更新成功
 	 * -1:两次密码不一致
+	 * -3:旧密码错误
 	 */
 	public String execute() throws Exception {
 		String result = "0";
@@ -92,12 +104,16 @@ public class UpdatePass extends ActionSupport {
 		if (userid == -1 || useremail == null || usernick == null) {
 			result = "-2";
 		} else {
-			if (!newpass1.equals(newpass2)) {
-				result = "-1";
-			} else {
-				newpass2 = MD5Util.makeSrcToMD5(newpass2);
-				UserDao.updatePassword(userid, newpass2);
-				result = "1";
+			if(!MD5Util.makeSrcToMD5(oldpass).equals(UserDao.selectPassMd5(userid, useremail, usernick))){
+				result = "-3";
+			}else{
+				if (!newpass1.equals(newpass2)) {
+					result = "-1";
+				} else {
+					newpass2 = MD5Util.makeSrcToMD5(newpass2);
+					UserDao.updatePassword(userid, newpass2);
+					result = "1";
+				}
 			}
 		}
 

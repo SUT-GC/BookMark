@@ -125,18 +125,21 @@ $(document).ready(function(){
 	$(".button_okedit").click(function(){
 		var newpass1 = $(".div_newpass1 input").val();
 		var newpass2 = $(".div_newpass2 input").val();
+		var oldpass = $(".input_oldpass").val();
 		if(newpass1 != newpass2){
 			alert("两次输入密码不一致，请进行修改...");
 		}else{
 			$(".div_edit_pass_doing").show();
 			$(".div_edit_pass").hide();
-			$.post("updatepass?newpass1="+newpass1+"&newpass2="+newpass2, function(data){
+			$.post("updatepass?newpass1="+newpass1+"&newpass2="+newpass2+"&oldpass="+oldpass, function(data){
 				if(data == 1){
 					$(".div_edit_pass_doing span").text("修改成功！");
 				}else if(data == -2){
 					window.location.href="session";
 				}else if(data == -1){
 					$(".div_edit_pass_doing span").text("两次密码输入不一致！");
+				}else if(data == -3){
+					$(".div_edit_pass_doing span").text("输入的旧密码错误");
 				}else{
 					$(".div_edit_pass_doing span").text("服务器链接失败");
 				}
