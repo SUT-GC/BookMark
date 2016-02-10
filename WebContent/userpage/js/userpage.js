@@ -589,6 +589,16 @@ $(document).ready(function(){
 		$(this).parent().parent().find(".webinfornum").text((webinfornum));
 		$.post("updatawebinfornum?webinforid="+webinforid);
 	})
+	/*
+	 * 点击链接添加点击数 
+	 */
+	$(".tbody_showwebinforbytime").on("click","a",function(){
+		var webinforid = $(this).parent().parent().find(".webinforid").text();
+		var webinfornum = $(this).parent().parent().find(".webinfornum").text();
+		$.post("updatawebinfornum?webinforid="+webinforid, function(data){
+			
+		});
+	})
 		
 	/*
 	 * 模糊搜索网站名称
