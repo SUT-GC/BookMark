@@ -23,9 +23,10 @@ public class AjaxInterceptor extends AbstractInterceptor {
 
 		System.out.println("userid = "+httpSession.getAttribute("userid")+", useremail = "+httpSession.getAttribute("useremail")+", usernick = "+httpSession.getAttribute("usernick"));
 		String result = "1";
-		if (httpSession.getAttribute("userid") == null
-				|| httpSession.getAttribute("useremail") == null
-				|| httpSession.getAttribute("usernick") == null) {
+		int userid = -1;
+		String useremail = null;
+		String usernick = null;
+		if (userid == -1 || useremail == null || usernick == null) {
 
 			/*
 			 * 在cookies里查询cookie
@@ -35,21 +36,18 @@ public class AjaxInterceptor extends AbstractInterceptor {
 				int count = 0;
 				for (Cookie cookie : cookies) {
 					if (cookie.getName().equals("userid")) {
-						httpSession.setAttribute("userid", cookie.getValue());
+						userid = Integer.parseInt(cookie.getValue());
 						count++;
 					}
 					if (cookie.getName().equals("useremail")) {
-						httpSession
-								.setAttribute("useremail", cookie.getValue());
+						useremail = cookie.getValue();
 						count++;
 					}
 					if (cookie.getName().equals("usernick")) {
-						httpSession.setAttribute("usernick", cookie.getValue());
+						usernick =  cookie.getValue();
 						count++;
 					}
 				}
-				System.out.println("从cookie里取出之后放进session之后的: userid = "+httpSession.getAttribute("userid")+", useremail = "+httpSession.getAttribute("useremail")+", usernick = "+httpSession.getAttribute("usernick"));
-				System.out.println(count);
 				if (count == 3) {
 					result = "1";
 				} else {

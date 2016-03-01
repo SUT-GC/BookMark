@@ -64,23 +64,18 @@ public class ShowLoginInfor extends ActionSupport {
 		userid = -1;
 		HttpSession httpSession = ServletActionContext.getRequest().getSession();
 		Cookie[] cookies = ServletActionContext.getRequest().getCookies();
-		if(httpSession.getAttribute("userid") != null && httpSession.getAttribute("useremail") != null && httpSession.getAttribute("usernick") != null){
-			userid = (int) httpSession.getAttribute("userid");
-			useremail = (String) httpSession.getAttribute("useremail");
-			usernike = (String) httpSession.getAttribute("usernick");
-		}else{
-			for(Cookie cookie: cookies){
-				if(cookie.getName().equals("userid")){
-					userid = Integer.parseInt(cookie.getValue());
-				}
-				if(cookie.getName().equals("useremail")){
-					useremail = cookie.getValue();
-				}
-				if(cookie.getName().equals("usernick")){
-					usernike = cookie.getValue();
-				}
+		for(Cookie cookie: cookies){
+			if(cookie.getName().equals("userid")){
+				userid = Integer.parseInt(cookie.getValue());
+			}
+			if(cookie.getName().equals("useremail")){
+				useremail = cookie.getValue();
+			}
+			if(cookie.getName().equals("usernick")){
+				usernike = cookie.getValue();
 			}
 		}
+		
 		if(userid == -1 || useremail == null || usernike == null){
 			return "session";
 		}else{

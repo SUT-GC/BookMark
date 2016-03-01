@@ -3,6 +3,7 @@ package action.ajax.update;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
@@ -11,6 +12,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import dao.bmdb.operate.UserInforDao;
 import dao.bmdb.operate.WebInforDao;
+import dao.wbdb.operate.UserDao;
 import encrypt.md5.MD5Util;
 
 public class UpdateKey extends ActionSupport {
@@ -56,33 +58,62 @@ public class UpdateKey extends ActionSupport {
 		
 		HttpSession httpSession = ServletActionContext.getRequest()
 				.getSession();
+		
+		
 		int userid = -1;
-		if (httpSession.getAttribute("userid") != null) {
-			userid = (int) httpSession.getAttribute("userid");
-		}
+		
+		
+		String useremail =null; 
+		String usernick = null; 
 
-		String useremail = (String) httpSession.getAttribute("useremail");
-		String usernick = (String) httpSession.getAttribute("usernick");
-
-		if (userid == -1 || useremail == null || usernick == null) {
-			result = "-2";
-		} else {
-			if(!newkey1.equals(newkey2)){
-				result = "-1";
-			}else{
-				String userkeymd5 = UserInforDao.selectUserKeyMd5ByUseridUseremail(userid, useremail);
-				if(MD5Util.makeSrcToMD5(oldkey).equals(userkeymd5)){
-					if(WebInforDao.updataWebinforResult(userid, newkey2, oldkey) == 1){
-						UserInforDao.updateKey(userid, MD5Util.makeSrcToMD5(newkey2));
-						result = "1";
-					}else{
-						result = "-3";
-					}
-				}else{
-					result = "-3";
+		
+		Cookie[] cookies = ServletActionContext.getRequest().getCookies();
+		if (cookies != null && cookies.length != 0) {
+			int count = 0;
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("userid")) {
+					userid = Integer.parseInt(cookie.getValue());
+					count++;
+				}
+				if (cookie.getName().equals("useremail")) {
+					useremail = cookie.getValue();
+					count++;
+				}
+				if (cookie.getName().equals("usernick")) {
+					usernick =  cookie.getValue();
+					count++;
 				}
 			}
+			if (count == 3) {
+				if (userid == -1 || useremail == null || usernick == null) {
+					result = "-2";
+				} else {
+					if(!newkey1.equals(newkey2)){
+						result = "-1";
+					}else{
+						String userkeymd5 = UserInforDao.selectUserKeyMd5ByUseridUseremail(userid, useremail);
+						if(MD5Util.makeSrcToMD5(oldkey).equals(userkeymd5)){
+							System.out.println("测试空指针异常userid="+userid+"newkey2="+newkey2+"oldkey="+oldkey);
+							if(WebInforDao.updataWebinforResult(userid, newkey2, oldkey) == 1){
+								UserInforDao.updateKey(userid, MD5Util.makeSrcToMD5(newkey2));
+								result = "1";
+							}else{
+								result = "-3";
+							}
+						}else{
+							result = "-3";
+						}
+					}
+				}
+			} else {
+				result = "-2";
+			}
+		} else {
+			result = "-2";
 		}
+		
+
+		
 		
 		inputStream = new ByteArrayInputStream(result.getBytes("utf-8"));
 		return SUCCESS;

@@ -241,6 +241,8 @@ $(document).ready(function(){
 					alert("填写格式不正确，请检查必填项目与某些内容的填写规定");
 				}else if(data == 0){
 					alert("与服务器链接失败");
+				}else if(data == 3){
+					window.location.href="session";
 				}else{
 					alert("添加成功 ");
 					$(".user_body").show(300);

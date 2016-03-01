@@ -48,33 +48,30 @@ public class UserPageInit extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		HttpSession httpSession = ServletActionContext.getRequest()
-				.getSession();
-		
+		int userid = -1;
+		String usernick = null;
+		String useremail = null;
 		/*
 		 * 查询其cookie中是否保留了登陆信息
 		 */
 		Cookie[] cookies = ServletActionContext.getRequest().getCookies();
 		for(Cookie cookie:cookies){
 			if(cookie.getName().equals("userid")){
-				httpSession.setAttribute("userid", Integer.parseInt(cookie.getValue()));
+				userid =  Integer.parseInt(cookie.getValue());
 				System.out.println("userid cookie = "+Integer.parseInt(cookie.getValue()));
 			}
 			if(cookie.getName().equals("usernick")){
-				httpSession.setAttribute("usernick", cookie.getValue());
+				usernick = cookie.getValue();
 				System.out.println("usernick cookie = "+cookie.getValue());
 			}
 			if(cookie.getName().equals("useremail")){
-				httpSession.setAttribute("useremail", cookie.getValue());
+				useremail = cookie.getValue();
 				System.out.println("useremail cookie = "+cookie.getValue());
 			}
 		}
 		
-		if (httpSession.getAttribute("userid") != null
-				|| httpSession.getAttribute("usernick") != null
-				|| httpSession.getAttribute("useremail") != null) {
-			List list = LabelDao.selectAllLabelByUserid((Integer) httpSession
-					.getAttribute("userid"));
+		if (userid != -1 && usernick != null && useremail != null) {
+			List list = LabelDao.selectAllLabelByUserid((Integer)userid);
 			/*
 			 * 将labelname解码
 			 */

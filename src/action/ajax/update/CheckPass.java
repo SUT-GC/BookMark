@@ -73,24 +73,47 @@ public class CheckPass extends ActionSupport {
 		String result = "0";
 		HttpSession httpSession = ServletActionContext.getRequest().getSession();
 		userid = -1;
-		if( httpSession.getAttribute("userid") != null){
-			userid = (int) httpSession.getAttribute("userid"); 
-		}
 		
-		useremail =(String) httpSession.getAttribute("useremail"); 
-		usernick = (String) httpSession.getAttribute("usernick"); 
+		
+		useremail =null; 
+		usernick = null; 
 
-		if(userid == -1 || useremail == null || usernick == null){
-			result = "-2";
-		}else{
-			String userpass = UserDao.selectPassMd5(userid, useremail, usernick);
-			System.out.println("userpass="+userpass);
-			System.out.println("oldpass"+oldpass);
-			if(userpass.equals(oldpass)){
-				result = "1";
-			}else{
-				result = "-1";
+		
+		Cookie[] cookies = ServletActionContext.getRequest().getCookies();
+		if (cookies != null && cookies.length != 0) {
+			int count = 0;
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("userid")) {
+					userid = Integer.parseInt(cookie.getValue());
+					count++;
+				}
+				if (cookie.getName().equals("useremail")) {
+					useremail = cookie.getValue();
+					count++;
+				}
+				if (cookie.getName().equals("usernick")) {
+					usernick =  cookie.getValue();
+					count++;
+				}
 			}
+			if (count == 3) {
+				if(userid == -1 || useremail == null || usernick == null){
+					result = "-2";
+				}else{
+					String userpass = UserDao.selectPassMd5(userid, useremail, usernick);
+					System.out.println("userpass="+userpass);
+					System.out.println("oldpass"+oldpass);
+					if(userpass.equals(oldpass)){
+						result = "1";
+					}else{
+						result = "-1";
+					}
+				}
+			} else {
+				result = "-2";
+			}
+		} else {
+			result = "-2";
 		}
 		
 		inputStream = new ByteArrayInputStream(result.getBytes("utf-8"));

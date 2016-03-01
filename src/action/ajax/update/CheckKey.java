@@ -3,6 +3,7 @@ package action.ajax.update;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
@@ -43,26 +44,43 @@ public class CheckKey extends ActionSupport {
 		String useremail = null;
 		String usernike = null;
 		
-		if(httpSession.getAttribute("userid") != null){
-			userid = (int) httpSession.getAttribute("userid");
-		}
-		if(httpSession.getAttribute("useremail") != null){
-			useremail =(String) httpSession.getAttribute("useremail");
-		}
-		if(httpSession.getAttribute("usernick") != null){
-			usernike =(String) httpSession.getAttribute("usernick");
-		}
-		if(userid != -1 && useremail != null && usernike != null){
-			oldkey = MD5Util.makeSrcToMD5(oldkey);
-			String userkey = UserInforDao.selectUserKeyMd5ByUseridUseremail(userid, useremail);
-			if(oldkey.equals(userkey)){
-				result = "1";
-			}else{
-				result = "-1";
+		
+		Cookie[] cookies = ServletActionContext.getRequest().getCookies();
+		if (cookies != null && cookies.length != 0) {
+			int count = 0;
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("userid")) {
+					userid = Integer.parseInt(cookie.getValue());
+					count++;
+				}
+				if (cookie.getName().equals("useremail")) {
+					useremail = cookie.getValue();
+					count++;
+				}
+				if (cookie.getName().equals("usernick")) {
+					usernike =  cookie.getValue();
+					count++;
+				}
 			}
-		}else{
+			if (count == 3) {
+				if(userid != -1 && useremail != null && usernike != null){
+					oldkey = MD5Util.makeSrcToMD5(oldkey);
+					String userkey = UserInforDao.selectUserKeyMd5ByUseridUseremail(userid, useremail);
+					if(oldkey.equals(userkey)){
+						result = "1";
+					}else{
+						result = "-1";
+					}
+				}else{
+					result = "-2";
+				}
+			} else {
+				result = "-2";
+			}
+		} else {
 			result = "-2";
 		}
+		
 		
 		inputStream = new ByteArrayInputStream(result.getBytes("utf-8"));
 		return SUCCESS;

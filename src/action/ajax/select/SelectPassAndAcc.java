@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
@@ -57,8 +58,21 @@ public class SelectPassAndAcc extends ActionSupport {
 			// session过期之后
 			result = "-2";
 		}else{
-			int userid = (int) httpSession.getAttribute("userid");
-			String useremail = (String) httpSession.getAttribute("useremail");
+			Cookie[] cookies = ServletActionContext.getRequest().getCookies();
+			int userid = -1;
+			String useremail = null;
+			String usernick = null;
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("userid")) {
+					userid = Integer.parseInt(cookie.getValue());
+				}
+				if (cookie.getName().equals("useremail")) {
+					useremail = cookie.getValue();
+				}
+				if (cookie.getName().equals("usernick")) {
+					usernick =  cookie.getValue();
+				}
+			}
 			
 			String keymd5 = UserInforDao.selectUserKeyMd5ByUseridUseremail(userid, useremail);
 			

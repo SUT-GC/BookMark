@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
@@ -85,7 +86,13 @@ public class AddLabel extends ActionSupport {
 			 * 将newlabelname里的"<"替换掉之后base64编码
 			 */
 			newLabel.setName(Base64Util.encodeToString((newlabelname)));
-			int userid = (int) httpSession.getAttribute("userid");
+			Cookie[] cookies = ServletActionContext.getRequest().getCookies();
+			int userid = -1;
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("userid")) {
+					userid = Integer.parseInt(cookie.getValue());
+				}
+			}
 			System.out.println(userid);
 			newLabel.setUserid(userid);
 			System.out.println("这里走了3");

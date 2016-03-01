@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
@@ -52,7 +53,21 @@ public class SelectLabels extends ActionSupport {
 			result = "-2";
 		} else {
 			// session没有过期
-			int userid = (int) httpSession.getAttribute("userid");
+			Cookie[] cookies = ServletActionContext.getRequest().getCookies();
+			int userid = -1;
+			String useremail = null;
+			String usernick = null;
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("userid")) {
+					userid = Integer.parseInt(cookie.getValue());
+				}
+				if (cookie.getName().equals("useremail")) {
+					useremail = cookie.getValue();
+				}
+				if (cookie.getName().equals("usernick")) {
+					usernick =  cookie.getValue();
+				}
+			}
 			List list = LabelDao.selectLabelsByUseridAndLabelname(
 					Base64Util.encodeToString(labelname), userid);
 			if (list == null || list.size() == 0) {

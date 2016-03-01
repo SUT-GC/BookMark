@@ -31,12 +31,10 @@ public class UserPassInit extends ActionSupport {
 	}
 	@Override
 	public String execute() throws Exception {
-		HttpSession httpSession = ServletActionContext.getRequest().getSession();
-		userid = (int) httpSession.getAttribute("userid"); 
-		useremail = (String) httpSession.getAttribute("useremail"); 
-		usernike = (String) httpSession.getAttribute("usernick"); 
-		
 		userid = -1;
+		useremail = null;
+		usernike = null;
+		
 		if(userid == -1 || useremail == null || usernike == null){
 			Cookie[] cookies = ServletActionContext.getRequest().getCookies();
 			for(Cookie cookie : cookies){

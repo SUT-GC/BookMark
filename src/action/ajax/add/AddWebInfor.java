@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Date;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
@@ -102,69 +103,90 @@ public class AddWebInfor extends ActionSupport {
 	 * -1:口令错误
 	 * 1:添加成功 
 	 * -2:必填项目不能为空
+	 * -3:session过期
 	 */
 	@Override
 	public String execute() throws Exception {
 
+		String result = "0";
 		HttpSession httpSession = ServletActionContext.getRequest()
 				.getSession();
-		int userid = (int) httpSession.getAttribute("userid");
-		String useremail = (String) httpSession.getAttribute("useremail");
-
-		String userkeymd5 = UserInforDao.selectUserKeyMd5ByUseridUseremail(
-				userid, useremail);
-
-		String result = "0";
-
-		if (input_webname == null || input_weblink == null
-				|| input_webname.equals("") || input_weblink.equals("")) {
-			result = "-2";
-		} else {
-			WebInfor webInfor = new WebInfor();
-			webInfor.setName(Base64Util.encodeToString(input_webname));
-			if(!webdescribe.equals("")){
-				webInfor.setDescribe(Base64Util.encodeToString(webdescribe));
-			}
-			webInfor.setCreatetime(new Timestamp(new Date().getTime()));
-			webInfor.setLink(Base64Util.encodeToString(input_weblink));
-			webInfor.setUserid(userid);
-			webInfor.setUseremail(useremail);
-			/*
-			 * 只要账号密码有一个不等于空并且口令不等于空即可成立
-			 */
-			System.out.println(((input_webaccount.length() != 0) + ", "+(input_webpassword.length() != 0)+","+  (input_password.length() != 0)));
-			if (((input_webaccount.length() != 0)
-					|| (input_webpassword.length() != 0)) && input_password.length() != 0) {
-				System.out.println("这里已经判断成功了");
-				if (!MD5Util.makeSrcToMD5(input_password).equals(userkeymd5)) {
-					result = "-1";
-				} else{
-					/*
-					 * 将账号密码重新拼接成 'account_BookMark_password'形式
-					 */
-					String newstring = input_webaccount+"_BookMark_"+input_webpassword;
-					PBEUtil pbeUtiEncodel = new PBEUtil(input_password, newstring);
-					byte[] encoderesult = pbeUtiEncodel.PBEEncode();
-					
-					webInfor.setSalt(Base64.encodeBase64String(pbeUtiEncodel.getSalt()));
-					webInfor.setResult(Base64.encodeBase64String(encoderesult));
+		if(httpSession.getAttribute("sessionoverdue") != null && httpSession.getAttribute("sessionoverdue").equals("yes") ){
+			result = "-3";
+			httpSession.removeAttribute("sessionoverdue");
+			System.out.println("AddLabel 走了1");
+		}else{
+			Cookie[] cookies = ServletActionContext.getRequest().getCookies();
+			int userid = -1;
+			String useremail = null;
+			String usernick = null;
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("userid")) {
+					userid = Integer.parseInt(cookie.getValue());
+				}
+				if (cookie.getName().equals("useremail")) {
+					useremail = cookie.getValue();
+				}
+				if (cookie.getName().equals("usernick")) {
+					usernick =  cookie.getValue();
 				}
 			}
-			/*
-			 * 如果result ！= -1也就是口令正确，则添加，若口令不正确，则先不添加
-			 */
-			int webinforid;
-			if(!result.equals("-1")){
-				webinforid = WebInforDao.insertWebInfor(webInfor);
-				if(labels != null && labels.length != 0){
-					for(String labelid: labels){
-						WebInforDao.addLabelToWebInforBywebInforId(Integer.parseInt(labelid), webinforid);
+			String userkeymd5 = UserInforDao.selectUserKeyMd5ByUseridUseremail(
+					userid, useremail);
+
+
+			if (input_webname == null || input_weblink == null
+					|| input_webname.equals("") || input_weblink.equals("")) {
+				result = "-2";
+			} else {
+				WebInfor webInfor = new WebInfor();
+				webInfor.setName(Base64Util.encodeToString(input_webname));
+				if(!webdescribe.equals("")){
+					webInfor.setDescribe(Base64Util.encodeToString(webdescribe));
+				}
+				webInfor.setCreatetime(new Timestamp(new Date().getTime()));
+				webInfor.setLink(Base64Util.encodeToString(input_weblink));
+				webInfor.setUserid(userid);
+				webInfor.setUseremail(useremail);
+				/*
+				 * 只要账号密码有一个不等于空并且口令不等于空即可成立
+				 */
+				System.out.println(((input_webaccount.length() != 0) + ", "+(input_webpassword.length() != 0)+","+  (input_password.length() != 0)));
+				if (((input_webaccount.length() != 0)
+						|| (input_webpassword.length() != 0)) && input_password.length() != 0) {
+					System.out.println("这里已经判断成功了");
+					if (!MD5Util.makeSrcToMD5(input_password).equals(userkeymd5)) {
+						result = "-1";
+					} else{
+						/*
+						 * 将账号密码重新拼接成 'account_BookMark_password'形式
+						 */
+						String newstring = input_webaccount+"_BookMark_"+input_webpassword;
+						PBEUtil pbeUtiEncodel = new PBEUtil(input_password, newstring);
+						byte[] encoderesult = pbeUtiEncodel.PBEEncode();
+						
+						webInfor.setSalt(Base64.encodeBase64String(pbeUtiEncodel.getSalt()));
+						webInfor.setResult(Base64.encodeBase64String(encoderesult));
 					}
 				}
-				result = ""+webinforid;
+				/*
+				 * 如果result ！= -1也就是口令正确，则添加，若口令不正确，则先不添加
+				 */
+				int webinforid;
+				if(!result.equals("-1")){
+					webinforid = WebInforDao.insertWebInfor(webInfor);
+					if(labels != null && labels.length != 0){
+						for(String labelid: labels){
+							WebInforDao.addLabelToWebInforBywebInforId(Integer.parseInt(labelid), webinforid);
+						}
+					}
+					result = ""+webinforid;
+				}
 			}
+
 		}
 
+	
 		inputStream = new ByteArrayInputStream(result.getBytes("utf-8"));
 		
 		return SUCCESS;

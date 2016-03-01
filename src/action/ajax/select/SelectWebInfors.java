@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
@@ -67,9 +68,21 @@ public class SelectWebInfors extends ActionSupport {
 			// session过期之后
 			result = "-2";
 		}else{
-			int userid  = (int) httpSession.getAttribute("userid");
-			String useremail = (String) httpSession.getAttribute("useremail");
-			System.out.println("type = "+type);
+			Cookie[] cookies = ServletActionContext.getRequest().getCookies();
+			int userid = -1;
+			String useremail = null;
+			String usernick = null;
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("userid")) {
+					userid = Integer.parseInt(cookie.getValue());
+				}
+				if (cookie.getName().equals("useremail")) {
+					useremail = cookie.getValue();
+				}
+				if (cookie.getName().equals("usernick")) {
+					usernick =  cookie.getValue();
+				}
+			}
 			if(type == 0){
 				list = WebInforDao.selectAllWebinforByUseridAndUseremailOrderbyNum(userid, useremail);
 			}else{

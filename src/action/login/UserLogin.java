@@ -72,17 +72,18 @@ public class UserLogin extends ActionSupport {
 
 				HttpSession httpSession = ServletActionContext.getRequest()
 						.getSession();
-				httpSession.setAttribute("usernick", userinfo.getUserNick());
+				
 				httpSession.setAttribute("userid", userinfo.getUserId());
+				httpSession.setAttribute("usernick",  userinfo.getUserNick());
 				httpSession.setAttribute("useremail", userinfo.getUserEmail());
-					
+				
 				Cookie useridcookie = new Cookie("userid", ""+userinfo.getUserId());
 				Cookie usernickcookie = new Cookie("usernick", userinfo.getUserNick());
 				Cookie useremailcookie = new Cookie("useremail", userinfo.getUserEmail());
 				
-				useremailcookie.setMaxAge(60*60*24);
-				usernickcookie.setMaxAge(60*60*24);
-				useridcookie.setMaxAge(60*60*24);
+				useremailcookie.setMaxAge(60*60*24*30);
+				usernickcookie.setMaxAge(60*60*24*30);
+				useridcookie.setMaxAge(60*60*24*30);
 				
 				ServletActionContext.getResponse().addCookie(useremailcookie);
 				ServletActionContext.getResponse().addCookie(useridcookie);

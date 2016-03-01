@@ -10,6 +10,8 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import dao.bmdb.operate.UserInforDao;
+import dao.bmdb.operate.WebInforDao;
 import dao.wbdb.operate.UserDao;
 import encrypt.md5.MD5Util;
 
@@ -93,29 +95,55 @@ public class UpdatePass extends ActionSupport {
 		String result = "0";
 		HttpSession httpSession = ServletActionContext.getRequest()
 				.getSession();
-		userid = -1;
-		if (httpSession.getAttribute("userid") != null) {
-			userid = (int) httpSession.getAttribute("userid");
-		}
+		int userid = -1;
+		
+		
+		String useremail =null; 
+		String usernick = null; 
 
-		useremail = (String) httpSession.getAttribute("useremail");
-		usernick = (String) httpSession.getAttribute("usernick");
-
-		if (userid == -1 || useremail == null || usernick == null) {
-			result = "-2";
-		} else {
-			if(!MD5Util.makeSrcToMD5(oldpass).equals(UserDao.selectPassMd5(userid, useremail, usernick))){
-				result = "-3";
-			}else{
-				if (!newpass1.equals(newpass2)) {
-					result = "-1";
-				} else {
-					newpass2 = MD5Util.makeSrcToMD5(newpass2);
-					UserDao.updatePassword(userid, newpass2);
-					result = "1";
+		
+		Cookie[] cookies = ServletActionContext.getRequest().getCookies();
+		if (cookies != null && cookies.length != 0) {
+			int count = 0;
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("userid")) {
+					userid = Integer.parseInt(cookie.getValue());
+					count++;
+				}
+				if (cookie.getName().equals("useremail")) {
+					useremail = cookie.getValue();
+					count++;
+				}
+				if (cookie.getName().equals("usernick")) {
+					usernick =  cookie.getValue();
+					count++;
 				}
 			}
+			if (count == 3) {
+				if (userid == -1 || useremail == null || usernick == null) {
+					result = "-2";
+				} else {
+					if(!MD5Util.makeSrcToMD5(oldpass).equals(UserDao.selectPassMd5(userid, useremail, usernick))){
+						result = "-3";
+					}else{
+						if (!newpass1.equals(newpass2)) {
+							result = "-1";
+						} else {
+							newpass2 = MD5Util.makeSrcToMD5(newpass2);
+							UserDao.updatePassword(userid, newpass2);
+							result = "1";
+						}
+					}
+				}
+			} else {
+				result = "-2";
+			}
+		} else {
+			result = "-2";
 		}
+		
+
+		
 
 		inputStream = new ByteArrayInputStream(result.getBytes("utf-8"));
 		return SUCCESS;
