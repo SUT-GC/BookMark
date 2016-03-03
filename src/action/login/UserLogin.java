@@ -65,6 +65,8 @@ public class UserLogin extends ActionSupport {
 		} else if (user.size() > 1) {
 			result = "-2";
 		} else {
+			System.out.println("用户输入的md5: "+MD5Util.makeSrcToMD5(userpass));
+			System.out.println("保存的md5: "+user.get(0).getUserPass());
 			if (user.get(0).getUserPass()
 					.equals(MD5Util.makeSrcToMD5(userpass))) {
 

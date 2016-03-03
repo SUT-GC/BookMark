@@ -251,6 +251,9 @@ public class WebInforDao {
 
 	/*
 	 * 13:根据userid与newkey，oldkey更新所有的口令
+	 * 0:webinforDao出错
+	 * 1:修改成功
+	 * -1:修改修改记录为0
 	 */
 	public static int  updataWebinforResult(int userid, String newkey,
 			String oldkey) {
@@ -263,23 +266,34 @@ public class WebInforDao {
 						"from WebInfor webinfor where webinfor.userid = :userid")
 				.setInteger("userid", userid).list();
 
-		int count = 0;
+		System.out.println("list判断是否为null:" + list);
+		
+		int count = 1;
 		for(WebInfor webInfor : list){
-			count ++;
+	
 			try {
-				PBEUtil pbeUtil = new PBEUtil(oldkey, Base64.decodeBase64(webInfor.getResult()), Base64.decodeBase64(webInfor.getSalt()));
-				String result = pbeUtil.PBEDecode();
-				PBEUtil newpbeUtil = new PBEUtil(newkey,result);
-				webInfor.setResult(Base64.encodeBase64String(newpbeUtil.PBEEncode()));
-				webInfor.setSalt(Base64.encodeBase64String(newpbeUtil.getSalt()));
-				if(count % 20 == 0){
-					session.flush();
+				System.out.println("webinfor:"+webInfor);
+				if(webInfor.getResult() == null || webInfor.getSalt() == null){
+					continue;
+				}else{
+					PBEUtil pbeUtil = new PBEUtil(oldkey, Base64.decodeBase64(webInfor.getResult()), Base64.decodeBase64(webInfor.getSalt()));
+					String result = pbeUtil.PBEDecode();
+					PBEUtil newpbeUtil = new PBEUtil(newkey,result);
+					webInfor.setResult(Base64.encodeBase64String(newpbeUtil.PBEEncode()));
+					webInfor.setSalt(Base64.encodeBase64String(newpbeUtil.getSalt()));
+					count ++;
+					if(count % 20 == 0){
+						session.flush();
+					}
+					resultint = 1;
 				}
-				resultint = 1;
 			} catch (Exception e) {
 				e.printStackTrace();
 				resultint = -1;
 			}
+		}
+		if(count == 1){
+			resultint = -1;
 		}
 		transaction.commit();
 		DBConnectUtil.closeSession(session);

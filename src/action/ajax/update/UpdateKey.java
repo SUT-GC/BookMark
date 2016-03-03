@@ -51,6 +51,7 @@ public class UpdateKey extends ActionSupport {
 	 * 0:数据库链接异常
 	 * 1:修改成功
 	 * -3:口令错误
+	 * -4:webinfordao异常
 	 */
 	@Override
 	public String execute() throws Exception {
@@ -84,6 +85,7 @@ public class UpdateKey extends ActionSupport {
 					count++;
 				}
 			}
+			
 			if (count == 3) {
 				if (userid == -1 || useremail == null || usernick == null) {
 					result = "-2";
@@ -91,14 +93,21 @@ public class UpdateKey extends ActionSupport {
 					if(!newkey1.equals(newkey2)){
 						result = "-1";
 					}else{
+						
 						String userkeymd5 = UserInforDao.selectUserKeyMd5ByUseridUseremail(userid, useremail);
 						if(MD5Util.makeSrcToMD5(oldkey).equals(userkeymd5)){
-							System.out.println("测试空指针异常userid="+userid+"newkey2="+newkey2+"oldkey="+oldkey);
-							if(WebInforDao.updataWebinforResult(userid, newkey2, oldkey) == 1){
+							System.out.println("测试空指针异常userid="+userid+"newkey2="+newkey2+"oldkey="+oldkey+",useremail="+useremail);
+							int webinforresultint = 0;
+							webinforresultint = WebInforDao.updataWebinforResult(userid, newkey2, oldkey);
+							if(webinforresultint == 1 ){
 								UserInforDao.updateKey(userid, MD5Util.makeSrcToMD5(newkey2));
 								result = "1";
+							}else if(webinforresultint == -1){
+								UserInforDao.updateKey(userid, MD5Util.makeSrcToMD5(newkey2));
+								System.out.println("修改记录为0");
+								result = "1";
 							}else{
-								result = "-3";
+								result = "-4";
 							}
 						}else{
 							result = "-3";
