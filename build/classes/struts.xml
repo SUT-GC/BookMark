@@ -17,7 +17,7 @@
 			<interceptor name="userpageinterceptor" class="interceptor.UserPageInterceptor"></interceptor>
 		</interceptors>
 		
-		<default-action-ref name="welcome" />
+		<default-action-ref name="user" />
 		
 		<action name="welcome">
 			<result>/WEB-INF/index.jsp</result>
