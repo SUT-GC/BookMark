@@ -221,19 +221,6 @@ body {
 									<tbody class="tbody_showwebinforbytime">
 										<!--一条记录start-->
 										<tr>
-											<td>1</td>
-											<td><a href="https://www.baidu.com" target="_blank">百度</a></td>
-											<td>2016-1-28 23:14:32</td>
-											<td><button class="show_button">
-													<span class="glyphicon glyphicon-eye-open "
-														aria-hidden="true"></span>
-												</button></td>
-											<td><button class="edit_button">
-													<span class="glyphicon glyphicon-pencil" aria-hidden="true">
-												</button></td>
-											<td><button class="del_button">
-													<span class="glyphicon glyphicon-remove" aria-hidden="true">
-											</button></td>
 										<tr />
 										<!--一条记录end-->
 									</tbody>
