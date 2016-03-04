@@ -489,7 +489,16 @@ body {
 		</div>
 	</div>
 	<!--添加标签end-->
-
+	
+	<hr style="padding-bottom: 10px;"/>
+	<div class="footer">
+		<span>用爱创造世界，用编程改变世界</span><br/>
+		<span>Creating the world with love and changing the world with programming </span><br/>
+		<span>版权所有 &copy  2016  <a href="http://igouc.com" target="blank">GC</a></span><br/>
+		<span>邮箱：<a href="mailto: sut_gouc@foxmail.com" >sut_gouc@foxmail.com</a></span><br/>
+		<span>Copyright &copy 2016 <a href="http://igouc.com" target="blank">GC</a> </span><br/>
+		<span>Email To：<a href="mailto: sut_gouc@foxmail.com" >sut_gouc@foxmail.com</a></span><br/>
+	</div>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="/BookMark/userpage/js/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
