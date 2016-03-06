@@ -144,6 +144,10 @@ public class AddWebInfor extends ActionSupport {
 				if(!webdescribe.equals("")){
 					webInfor.setDescribe(Base64Util.encodeToString(webdescribe));
 				}
+				//如果url不是以http://或者https://开头的，则添加http：//
+				if(!input_weblink.startsWith("http://") && !input_weblink.startsWith("https://")){
+					input_weblink = "http://"+input_weblink;
+				}
 				webInfor.setCreatetime(new Timestamp(new Date().getTime()));
 				webInfor.setLink(Base64Util.encodeToString(input_weblink));
 				webInfor.setUserid(userid);

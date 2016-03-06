@@ -94,6 +94,10 @@ public class EditWebInfor extends ActionSupport {
 		}else{
 			WebInfor webInfor = new WebInfor();
 			webInfor.setName(Base64Util.encodeToString(webinforname));
+			//如果url不是以http://或者https://开头的，则添加http：//
+			if(!webinforlink.startsWith("http://") && !webinforlink.startsWith("https://")){
+				webinforlink = "http://"+webinforlink;
+			}
 			webInfor.setLink(Base64Util.encodeToString(webinforlink));
 			if(webinfordes.length() != 0 ){
 				webInfor.setDescribe(Base64Util.encodeToString(webinfordes));
