@@ -272,6 +272,11 @@ $(document).ready(function(){
 		if($(".selectshowbybit").hasClass("active")){
 			type = 0;
 		}
+		$(".tbody_showwebinforbytime").empty();
+		$(".tbody_showwebinforbytime").prepend("<td></td><td><span style='color:red; font-size:20px;'>正在查询该标签下的网站记录......</span></td>");
+		$(".tbody_showwebinforbybit").empty();
+		$(".tbody_showwebinforbybit").prepend("<td></td><td><span style='color:red; font-size:20px;'>正在查询该标签下的网站记录......</span></td>");
+		
 		$.post("selectwebinforsbylabelid?labelid="+labelid+"&type="+type, function(data){
 			if(data == 0){
 				if(type == 1){
