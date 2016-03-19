@@ -12,6 +12,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import dao.bmdb.operate.UserInforDao;
 import dao.wbdb.operate.UserDao;
+import encrypt.base64.Base64Util;
 import encrypt.md5.MD5Util;
 
 public class CheckPass extends ActionSupport {
@@ -92,7 +93,8 @@ public class CheckPass extends ActionSupport {
 					count++;
 				}
 				if (cookie.getName().equals("usernick")) {
-					usernick =  cookie.getValue();
+					usernick =  Base64Util.decodeToString(cookie.getValue());
+					System.out.println("usernick = "+usernick);
 					count++;
 				}
 			}
@@ -100,7 +102,7 @@ public class CheckPass extends ActionSupport {
 				if(userid == -1 || useremail == null || usernick == null){
 					result = "-2";
 				}else{
-					String userpass = UserDao.selectPassMd5(userid, useremail, usernick);
+					String userpass = UserDao.selectPassMd5(userid, useremail);
 					System.out.println("userpass="+userpass);
 					System.out.println("oldpass"+oldpass);
 					if(userpass.equals(oldpass)){
@@ -115,7 +117,7 @@ public class CheckPass extends ActionSupport {
 		} else {
 			result = "-2";
 		}
-		
+		System.out.println("result = "+result );
 		inputStream = new ByteArrayInputStream(result.getBytes("utf-8"));
 		return SUCCESS;
 	}

@@ -13,6 +13,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import dao.bmdb.operate.UserInforDao;
 import dao.bmdb.operate.WebInforDao;
 import dao.wbdb.operate.UserDao;
+import encrypt.base64.Base64Util;
 import encrypt.md5.MD5Util;
 
 public class UpdatePass extends ActionSupport {
@@ -115,7 +116,7 @@ public class UpdatePass extends ActionSupport {
 					count++;
 				}
 				if (cookie.getName().equals("usernick")) {
-					usernick =  cookie.getValue();
+					usernick =  Base64Util.decodeToString(cookie.getValue());
 					count++;
 				}
 			}
@@ -123,7 +124,7 @@ public class UpdatePass extends ActionSupport {
 				if (userid == -1 || useremail == null || usernick == null) {
 					result = "-2";
 				} else {
-					if(!MD5Util.makeSrcToMD5(oldpass).equals(UserDao.selectPassMd5(userid, useremail, usernick))){
+					if(!MD5Util.makeSrcToMD5(oldpass).equals(UserDao.selectPassMd5(userid, useremail))){
 						result = "-3";
 					}else{
 						if (!newpass1.equals(newpass2)) {

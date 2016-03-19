@@ -61,12 +61,12 @@ public class UserPageInit extends ActionSupport {
 				System.out.println("userid cookie = "+Integer.parseInt(cookie.getValue()));
 			}
 			if(cookie.getName().equals("usernick")){
-				usernick = cookie.getValue();
-				System.out.println("usernick cookie = "+cookie.getValue());
+				usernick = Base64Util.decodeToString(cookie.getValue());
+				System.out.println("usernick cookie = "+Base64Util.decodeToString(cookie.getValue()));
 			}
 			if(cookie.getName().equals("useremail")){
 				useremail = cookie.getValue();
-				System.out.println("useremail cookie = "+cookie.getValue());
+				System.out.println("useremail cookie = "+(cookie.getValue()));
 			}
 		}
 		

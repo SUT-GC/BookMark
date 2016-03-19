@@ -13,6 +13,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import dao.bmdb.operate.UserInforDao;
 import dao.bmdb.operate.WebInforDao;
 import dao.wbdb.operate.UserDao;
+import encrypt.base64.Base64Util;
 import encrypt.md5.MD5Util;
 
 public class UpdateKey extends ActionSupport {
@@ -81,7 +82,7 @@ public class UpdateKey extends ActionSupport {
 					count++;
 				}
 				if (cookie.getName().equals("usernick")) {
-					usernick =  cookie.getValue();
+					usernick =  Base64Util.decodeToString(cookie.getValue());
 					count++;
 				}
 			}

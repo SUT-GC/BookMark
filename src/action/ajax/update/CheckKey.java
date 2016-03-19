@@ -12,6 +12,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import dao.bmdb.operate.UserInforDao;
 import dao.wbdb.operate.UserDao;
+import encrypt.base64.Base64Util;
 import encrypt.md5.MD5Util;
 
 public class CheckKey extends ActionSupport {
@@ -58,11 +59,12 @@ public class CheckKey extends ActionSupport {
 					count++;
 				}
 				if (cookie.getName().equals("usernick")) {
-					usernike =  cookie.getValue();
+					usernike =  Base64Util.decodeToString(cookie.getValue());
 					count++;
 				}
 			}
 			if (count == 3) {
+				System.out.println("userid="+userid+"usernick="+usernike+"useremail="+useremail);
 				if(userid != -1 && useremail != null && usernike != null){
 					oldkey = MD5Util.makeSrcToMD5(oldkey);
 					String userkey = UserInforDao.selectUserKeyMd5ByUseridUseremail(userid, useremail);
@@ -81,7 +83,7 @@ public class CheckKey extends ActionSupport {
 			result = "-2";
 		}
 		
-		
+		System.out.println("result = "+result );
 		inputStream = new ByteArrayInputStream(result.getBytes("utf-8"));
 		return SUCCESS;
 	}

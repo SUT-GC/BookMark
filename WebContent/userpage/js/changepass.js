@@ -79,6 +79,7 @@ $(document).ready(function(){
 					changeIconToError("div_oldpass");
 					$(".button_okedit").attr("disabled","disabled");
 				}
+				
 				$(".div_edit_pass .input_oldpass_result").text(result);
 			});
 		}

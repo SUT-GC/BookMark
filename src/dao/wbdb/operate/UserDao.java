@@ -55,8 +55,7 @@ public class UserDao {
 	/*
 	 * 3：根据userid，useremail，usernike查询passMD5
 	 */
-	public static String selectPassMd5(int userid, String useremail,
-			String usernick) {
+	public static String selectPassMd5(int userid, String useremail) {
 		String passMd5 = "";
 		List list = null;
 		Session session = DBConnectUtil.currentSession();
@@ -64,9 +63,9 @@ public class UserDao {
 
 		list = session
 				.createQuery(
-						"select u.userPass from User u where u.userId = :userid and u.userEmail = :useremail and u.userNick = :usernick")
+						"select u.userPass from User u where u.userId = :userid and u.userEmail = :useremail")
 				.setInteger("userid", userid).setString("useremail", useremail)
-				.setString("usernick", usernick).list();
+				.list();
 		passMd5 = (String) list.get(0);
 		
 		transaction.commit();

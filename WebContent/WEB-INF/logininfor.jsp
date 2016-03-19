@@ -33,9 +33,9 @@
       </div>
       <div class='body'>
         <div class="body_userinfor">
-          <span>用户ID: </span><a href="#"><span class="userid">1</span></a>&nbsp;&nbsp;&nbsp;&nbsp;
-          <span>用户昵称：</span><a href="#"><span class="usernick">Gc</span></a>&nbsp;&nbsp;&nbsp;&nbsp;
-          <span>用户账号：</span><a href="#"><span class="useremail">sut_gc@foxmail.com</span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+          <span>用户ID: </span><a href="#"><span class="userid"><s:property value="#session.userid"/> </span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+          <span>用户昵称：</span><a href="#"><span class="usernick"><s:property value="#session.usernick"/> </span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+          <span>用户账号：</span><a href="#"><span class="useremail"><s:property value="#session.useremail"/> </span></a>&nbsp;&nbsp;&nbsp;&nbsp;
           <span>返回>></span><a href="user"><span class="useremail">BookMark</span></a>
         </div>
         <div class="body_logininfor">

@@ -9,6 +9,7 @@ import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 
 import dao.bmdb.operate.UserInforDao;
+import encrypt.base64.Base64Util;
 
 public class ChangePassInterceptor extends AbstractInterceptor {
 
@@ -32,7 +33,7 @@ int userid = -1;
 					useremail = cookie.getValue();
 				}
 				if (cookie.getName().equals("usernick")) {
-					usernick =  cookie.getValue();
+					usernick = Base64Util.decodeToString(cookie.getValue());
 				}
 			}
 		}

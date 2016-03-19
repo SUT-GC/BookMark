@@ -11,6 +11,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import dao.bmdb.entity.LoginInfor;
 import dao.bmdb.operate.UserInforDao;
+import encrypt.base64.Base64Util;
 
 public class ShowLoginInfor extends ActionSupport {
 	private List<LoginInfor> list = null;
@@ -72,13 +73,14 @@ public class ShowLoginInfor extends ActionSupport {
 				useremail = cookie.getValue();
 			}
 			if(cookie.getName().equals("usernick")){
-				usernike = cookie.getValue();
+				usernike = Base64Util.decodeToString(cookie.getValue());
 			}
 		}
 		
 		if(userid == -1 || useremail == null || usernike == null){
 			return "session";
 		}else{
+			System.out.println(userid);
 			list = UserInforDao.selectLoginInfor(userid);
 			size = list.size();
 		}

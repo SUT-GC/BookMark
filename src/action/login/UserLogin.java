@@ -17,6 +17,7 @@ import dao.bmdb.entity.LoginInfor;
 import dao.bmdb.operate.UserInforDao;
 import dao.wbdb.entity.User;
 import dao.wbdb.operate.UserDao;
+import encrypt.base64.Base64Util;
 import encrypt.md5.MD5Util;
 
 public class UserLogin extends ActionSupport {
@@ -60,18 +61,25 @@ public class UserLogin extends ActionSupport {
 	public String execute() throws Exception {
 		List<User> user = UserDao.selectUserByUseremail(useremail);
 		String result = "";
+		System.out.println("user.size = "+user.size());
 		if (user.size() < 1) {
 			result = "0";
+			System.out.println("<111111111111");
 		} else if (user.size() > 1) {
 			result = "-2";
+			System.out.println(">111111111111");
 		} else {
+			
 			System.out.println("用户输入的md5: "+MD5Util.makeSrcToMD5(userpass));
 			System.out.println("保存的md5: "+user.get(0).getUserPass());
 			if (user.get(0).getUserPass()
 					.equals(MD5Util.makeSrcToMD5(userpass))) {
+				
 
 				User userinfo = user.get(0);
 
+				System.out.println(userinfo);
+				
 				HttpSession httpSession = ServletActionContext.getRequest()
 						.getSession();
 				
@@ -80,27 +88,30 @@ public class UserLogin extends ActionSupport {
 				httpSession.setAttribute("useremail", userinfo.getUserEmail());
 				
 				Cookie useridcookie = new Cookie("userid", ""+userinfo.getUserId());
-				Cookie usernickcookie = new Cookie("usernick", userinfo.getUserNick());
+				Cookie usernickcookie = new Cookie("usernick", Base64Util.encodeToString(userinfo.getUserNick()));
 				Cookie useremailcookie = new Cookie("useremail", userinfo.getUserEmail());
-				
+				System.out.println("储存结束ing1");
 				useremailcookie.setMaxAge(60*60*24*30);
 				usernickcookie.setMaxAge(60*60*24*30);
 				useridcookie.setMaxAge(60*60*24*30);
-				
+				System.out.println("储存结束ing2");
 				ServletActionContext.getResponse().addCookie(useremailcookie);
 				ServletActionContext.getResponse().addCookie(useridcookie);
 				ServletActionContext.getResponse().addCookie(usernickcookie);
 				
+				System.out.println("储存结束");
 				result = "1";
 				
 				if(UserInforDao.selectThisUserIsFirstToUseBookMark(userinfo.getUserId(), userinfo.getUserEmail(), userinfo.getUserNick())){
 					httpSession.setAttribute("isFirstToUse", "yes");
 					System.out.println("这里走了UserLogin的检查为第一次访问");
 					result = "2";
+					System.out.println("111111111111");
 				}else{
+					System.out.println("2222222222222222");
 					httpSession.setAttribute("isFirstToUse", "no");
 				}
-				
+				System.out.println("user login result1 = "+result);
 				if(result.equals("1")){
 					LoginInfor loginInfor = new LoginInfor(new Timestamp(new Date().getTime()));
 					loginInfor.setIpAddress(ServletActionContext.getRequest().getRemoteAddr());
@@ -109,10 +120,11 @@ public class UserLogin extends ActionSupport {
 				}
 				
 			} else {
+				System.out.println("-1-1-1-1-11-1-1-1-");
 				result = "-1";
 			}
 		}
-
+		System.out.println("user login result = "+result);
 	
 		inputStream = new ByteArrayInputStream(result.getBytes("utf-8"));
 

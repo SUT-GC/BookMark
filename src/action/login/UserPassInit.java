@@ -7,6 +7,8 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import encrypt.base64.Base64Util;
+
 public class UserPassInit extends ActionSupport {
 	private int userid;
 	private String useremail;
@@ -42,7 +44,7 @@ public class UserPassInit extends ActionSupport {
 					userid = Integer.parseInt(cookie.getValue());
 				}
 				if(cookie.getName().equals("usernick")){
-					usernike = cookie.getValue();
+					usernike = Base64Util.decodeToString(cookie.getValue());
 				}
 				if(cookie.getName().equals("useremail")){
 					useremail = cookie.getValue();

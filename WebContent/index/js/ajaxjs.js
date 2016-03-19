@@ -33,7 +33,7 @@ $(document).ready(function(){
 						stringResult = "对不起，该邮箱不存在！";
 					}else if(data == "-1"){
 						stringResult = "对不起，密码错误！";
-					}else{
+					}else {
 						stringResult = "警告，查询结果不唯一，系统错误，请告知管理员"
 					}
 				}else{

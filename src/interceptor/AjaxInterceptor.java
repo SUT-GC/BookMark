@@ -12,6 +12,8 @@ import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 
+import encrypt.base64.Base64Util;
+
 public class AjaxInterceptor extends AbstractInterceptor {
 
 
@@ -44,7 +46,7 @@ public class AjaxInterceptor extends AbstractInterceptor {
 						count++;
 					}
 					if (cookie.getName().equals("usernick")) {
-						usernick =  cookie.getValue();
+						usernick = Base64Util.decodeToString(cookie.getValue());
 						count++;
 					}
 				}
