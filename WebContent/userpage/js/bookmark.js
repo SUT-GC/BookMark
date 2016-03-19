@@ -127,6 +127,9 @@ $(document)
 						$(".checkbox_alllabels").empty();
 						$(".checkbox_alllabels").text("正在查询可选标签...");
 						$(".tol_add").slideDown(200);
+						$(".input_webname").val("");
+						$(".input_weblink").val("");
+						$(".input_webdescribe").val("");
 						$.post("selectlabelsbyuseridandlabelname?labelname=", function(data){
 							$(".checkbox_alllabels").empty();
 							if(data == 0){
