@@ -117,7 +117,7 @@ public class UserLogin extends ActionSupport {
 				if(result.equals("1")){
 					LoginInfor loginInfor = new LoginInfor(new Timestamp(new Date().getTime()));
 					String loginip = ServletActionContext.getRequest().getRemoteAddr();
-
+//					String loginip = "163.44.165.23";
 					String loginaddress = "";
 					if(loginip.equals("0:0:0:0:0:0:0:1")){
 						loginaddress="本机回环地址";
