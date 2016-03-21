@@ -7,7 +7,7 @@
 		<!-- 指定连接数据库所用的驱动 -->
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<!-- 指定连接数据库的url，其中hibernate是本应用连接的数据库名 -->
-		<property name="connection.url">jdbc:mysql://localhost:3306/bm</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/bm?characterEncoding=utf8</property>
 		<!-- 指定连接数据库的用户名 -->
 		<property name="connection.username">root</property>
 		<!-- 指定连接数据库的密码 -->

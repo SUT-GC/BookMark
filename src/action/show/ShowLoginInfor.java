@@ -82,6 +82,9 @@ public class ShowLoginInfor extends ActionSupport {
 		}else{
 			System.out.println(userid);
 			list = UserInforDao.selectLoginInfor(userid);
+			for(int i = 0; i < list.size(); i++){
+				list.get(i).setHostname(Base64Util.decodeToString(list.get(i).getHostname()));
+			}
 			size = list.size();
 		}
 		

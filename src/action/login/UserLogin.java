@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
+import select.ip.ShowAddress;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.bmdb.entity.LoginInfor;
@@ -114,8 +116,18 @@ public class UserLogin extends ActionSupport {
 				System.out.println("user login result1 = "+result);
 				if(result.equals("1")){
 					LoginInfor loginInfor = new LoginInfor(new Timestamp(new Date().getTime()));
-					loginInfor.setIpAddress(ServletActionContext.getRequest().getRemoteAddr());
-					loginInfor.setHostname(ServletActionContext.getRequest().getRemoteHost());
+					String loginip = ServletActionContext.getRequest().getRemoteAddr();
+
+					String loginaddress = "";
+					if(loginip.equals("0:0:0:0:0:0:0:1")){
+						loginaddress="本机回环地址";
+					}else{
+						ShowAddress showAddress = new ShowAddress("bcf69b3f618d1ca364def3583f6abaaf");
+						loginaddress = showAddress.getResult(loginip);
+					}
+					loginInfor.setIpAddress(loginip);	
+					loginaddress = Base64Util.encodeToString(loginaddress);
+					loginInfor.setHostname(loginaddress);
 					UserInforDao.insertLoginInforByUseridUseremailUsernike(userinfo.getUserId(), userinfo.getUserEmail(), userinfo.getUserNick(), loginInfor);
 				}
 				

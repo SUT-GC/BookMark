@@ -1,3 +1,4 @@
+<%@page import="encrypt.base64.Base64Util"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags" %>
@@ -41,7 +42,7 @@
         <div class="body_logininfor">
           <table class="table table-hover">
             <thead class="thead_logininfor">
-              <tr><td>#</td><td>登陆Ip</td><td>登陆主机</td><td>登陆时间</td></tr>
+              <tr><td>#</td><td>登陆Ip</td><td>登陆地址</td><td>登陆时间</td></tr>
             </thead>
             <tbody class="tbody_logininfor">
 	            <s:iterator value="list" status="st">
