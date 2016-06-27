@@ -9,9 +9,9 @@
 		<!-- 指定连接数据库的url，其中hibernate是本应用连接的数据库名 -->
 		<property name="connection.url">jdbc:mysql://localhost:3306/wb</property>
 		<!-- 指定连接数据库的用户名 -->
-		<property name="connection.username">root</property>
+		<property name="connection.username">XXXX</property>
 		<!-- 指定连接数据库的密码 -->
-		<property name="connection.password">gc</property>
+		<property name="connection.password">xx</property>
 		<!-- 指定连接池里最大连接数 -->
 		<property name="hibernate.c3p0.max_size">20</property>
 		<!-- 指定连接池里最小连接数 -->
