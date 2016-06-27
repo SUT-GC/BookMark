@@ -9,9 +9,9 @@
 		<!-- 指定连接数据库的url，其中hibernate是本应用连接的数据库名 -->
 		<property name="connection.url">jdbc:mysql://localhost:3306/bm?characterEncoding=utf8</property>
 		<!-- 指定连接数据库的用户名 -->
-		<property name="connection.username">root</property>
+		<property name="connection.username">xxxx</property>
 		<!-- 指定连接数据库的密码 -->
-		<property name="connection.password">gc</property>
+		<property name="connection.password">xx</property>
 		<!-- 告诉系统用连接池进行数据库链接 -->
     	<property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>  
 		<!-- 指定连接池里最大连接数 -->
